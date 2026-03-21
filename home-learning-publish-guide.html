@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Home Learning — Publishing Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --green-950: #052e16;
+  --green-900: #14532d;
+  --green-700: #15803d;
+  --green-600: #16a34a;
+  --green-500: #22c55e;
+  --green-400: #4ade80;
+  --green-100: #dcfce7;
+  --green-50:  #f0fdf4;
+  --white:     #ffffff;
+  --off:       #f8fafc;
+  --slate-700: #334155;
+  --slate-500: #64748b;
+  --slate-300: #cbd5e1;
+  --slate-100: #f1f5f9;
+  --border:    #d1fae5;
+  --amber:     #f59e0b;
+  --blue:      #3b82f6;
+  --blue-light:#eff6ff;
+  --red:       #ef4444;
+  --red-light: #fef2f2;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--green-950); line-height: 1.6; }
+
+/* HEADER */
+.guide-header {
+  background: var(--green-950);
+  padding: 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.guide-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(34,197,94,0.2) 0%, transparent 70%);
+}
+.guide-header-inner { position: relative; }
+.guide-badge {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--green-400); background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(74,222,128,0.2);
+  padding: 0.35rem 1rem; border-radius: 999px; margin-bottom: 1.2rem;
+}
+.guide-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900; color: var(--white); margin-bottom: 0.8rem;
+}
+.guide-title em { color: var(--green-400); font-style: normal; }
+.guide-sub { color: rgba(255,255,255,0.55); font-size: 1rem; max-width: 560px; margin: 0 auto; }
+
+/* PROGRESS BAR */
+.progress-bar {
+  background: var(--green-900);
+  padding: 1rem 3rem;
+  display: flex; align-items: center; gap: 0;
+  overflow-x: auto;
+  border-bottom: 1px solid rgba(74,222,128,0.15);
+  position: sticky; top: 0; z-index: 50;
+}
+.progress-step {
+  display: flex; align-items: center; gap: 0; flex-shrink: 0;
+}
+.progress-step-dot {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem; font-weight: 700; color: rgba(255,255,255,0.3);
+  transition: all 0.3s; cursor: pointer; flex-shrink: 0;
+}
+.progress-step-dot.done { background: var(--green-600); border-color: var(--green-500); color: white; }
+.progress-step-dot.active { background: var(--green-400); border-color: var(--green-400); color: var(--green-950); box-shadow: 0 0 12px rgba(74,222,128,0.4); }
+.progress-step-label {
+  font-size: 0.75rem; font-weight: 600;
+  color: rgba(255,255,255,0.35); margin: 0 0.7rem;
+  white-space: nowrap;
+}
+.progress-step-label.active { color: var(--green-400); }
+.progress-line { width: 32px; height: 2px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
+.progress-line.done { background: var(--green-600); }
+
+/* MAIN LAYOUT */
+.guide-body { max-width: 860px; margin: 0 auto; padding: 3rem 2rem; }
+
+/* SECTION */
+.guide-section { margin-bottom: 3.5rem; }
+.section-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--green-600); margin-bottom: 0.5rem;
+}
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem; font-weight: 900;
+  color: var(--green-950); margin-bottom: 0.5rem;
+}
+.section-desc { color: var(--slate-500); font-size: 0.95rem; margin-bottom: 1.5rem; }
+
+/* STEP CARD */
+.step-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 1.6rem;
+  margin-bottom: 1.2rem;
+  position: relative;
+  transition: box-shadow 0.2s;
+}
+.step-card:hover { box-shadow: 0 4px 20px rgba(5,46,22,0.08); }
+.step-card-header {
+  display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem;
+}
+.step-num-badge {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--green-600); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif; font-size: 0.95rem; font-weight: 900;
+  flex-shrink: 0;
+}
+.step-card-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.2rem; }
+.step-card-sub   { font-size: 0.83rem; color: var(--slate-500); }
+
+.step-body { padding-left: 3rem; }
+
+/* CODE BLOCK */
+.code-block {
+  background: var(--green-950);
+  border-radius: 10px;
+  padding: 1.1rem 1.3rem;
+  margin: 0.8rem 0;
+  position: relative;
+  overflow-x: auto;
+}
+.code-block pre {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.83rem; color: var(--green-400);
+  white-space: pre-wrap; word-break: break-all;
+}
+.code-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem; color: rgba(74,222,128,0.4);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+.copy-btn {
+  position: absolute; top: 0.8rem; right: 0.8rem;
+  background: rgba(74,222,128,0.15); border: 1px solid rgba(74,222,128,0.2);
+  color: var(--green-400); border-radius: 6px;
+  padding: 0.2rem 0.7rem; font-size: 0.72rem; cursor: pointer;
+  font-family: 'DM Mono', monospace; transition: background 0.2s;
+}
+.copy-btn:hover { background: rgba(74,222,128,0.25); }
+
+/* INFO BOXES */
+.info-box {
+  border-radius: 10px; padding: 1rem 1.2rem;
+  display: flex; gap: 0.8rem; align-items: flex-start;
+  margin: 0.8rem 0; font-size: 0.88rem;
+}
+.info-tip    { background: var(--blue-light);  border: 1px solid #bfdbfe; color: #1e40af; }
+.info-warn   { background: #fffbeb;            border: 1px solid #fde68a; color: #92400e; }
+.info-success{ background: var(--green-50);    border: 1px solid var(--border); color: var(--green-900); }
+.info-icon   { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.05rem; }
+
+/* CHECKLIST */
+.checklist { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin: 0.8rem 0; }
+.checklist li {
+  display: flex; align-items: flex-start; gap: 0.8rem;
+  font-size: 0.9rem; padding: 0.6rem 0.9rem;
+  background: var(--green-50); border: 1px solid var(--border);
+  border-radius: 8px; cursor: pointer; transition: background 0.15s;
+}
+.checklist li:hover { background: var(--green-100); }
+.check-box {
+  width: 18px; height: 18px; border-radius: 4px;
+  border: 2px solid var(--green-500); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; color: white; transition: background 0.15s;
+  margin-top: 2px;
+}
+.checklist li.checked .check-box { background: var(--green-600); border-color: var(--green-600); }
+.checklist li.checked .check-text { text-decoration: line-through; color: var(--slate-500); }
+
+/* FILE EDIT */
+.file-edit-card {
+  background: var(--green-950); border-radius: 12px; overflow: hidden; margin: 0.8rem 0;
+}
+.file-edit-header {
+  padding: 0.7rem 1.1rem;
+  display: flex; align-items: center; gap: 0.6rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.file-dot { width: 10px; height: 10px; border-radius: 50%; }
+.file-name { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-left: auto; }
+.file-edit-body { padding: 1.1rem; font-family: 'DM Mono', monospace; font-size: 0.82rem; color: #94a3b8; line-height: 1.8; }
+.hl-green  { color: var(--green-400); }
+.hl-amber  { color: #fbbf24; }
+.hl-white  { color: white; }
+.hl-comment{ color: #475569; }
+
+/* SCREENSHOT PLACEHOLDER */
+.screen-placeholder {
+  background: var(--slate-100); border: 2px dashed var(--slate-300);
+  border-radius: 12px; padding: 2.5rem;
+  text-align: center; color: var(--slate-500);
+  margin: 0.8rem 0; font-size: 0.88rem;
+}
+.screen-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+/* LINK BUTTON */
+.link-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--green-600); color: white;
+  padding: 0.65rem 1.3rem; border-radius: 8px;
+  text-decoration: none; font-size: 0.88rem; font-weight: 700;
+  transition: background 0.2s, transform 0.15s; margin: 0.3rem 0.3rem 0.3rem 0;
+}
+.link-btn:hover { background: var(--green-700); transform: translateY(-1px); }
+.link-btn.outline {
+  background: transparent; color: var(--green-700);
+  border: 2px solid var(--green-500);
+}
+.link-btn.outline:hover { background: var(--green-50); }
+
+/* CONGRATS BANNER */
+.congrats-banner {
+  background: linear-gradient(135deg, var(--green-950), var(--green-900));
+  border-radius: 16px; padding: 2.5rem;
+  text-align: center; color: white;
+  border: 1px solid rgba(74,222,128,0.2);
+}
+.congrats-banner h2 { font-family: 'Fraunces', serif; font-size: 1.8rem; font-weight: 900; color: var(--green-400); margin-bottom: 0.5rem; }
+.congrats-banner p  { color: rgba(255,255,255,0.6); font-size: 0.95rem; max-width: 500px; margin: 0 auto 1.5rem; }
+
+/* DIVIDER */
+.divider { height: 1px; background: var(--border); margin: 2.5rem 0; }
+
+/* EDIT HIGHLIGHT */
+.edit-highlight {
+  background: #fffbeb; border: 1.5px solid #fde68a;
+  border-radius: 8px; padding: 0.9rem 1.1rem; margin: 0.6rem 0;
+  font-size: 0.88rem;
+}
+.edit-highlight strong { color: #92400e; }
+
+@media (max-width: 600px) {
+  .guide-header { padding: 2rem 1.5rem; }
+  .guide-body   { padding: 2rem 1.2rem; }
+  .progress-bar { padding: 0.8rem 1rem; }
+  .step-body    { padding-left: 0; margin-top: 0.8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="guide-header">
+  <div class="guide-header-inner">
+    <div class="guide-badge">// Step-by-Step Publishing Guide</div>
+    <h1 class="guide-title">How to Edit &amp; Publish<br><em>Home Learning</em> Live</h1>
+    <p class="guide-sub">From your downloaded files to a live public website on GitHub Pages — no coding experience required beyond following these steps.</p>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-bar">
+  <div class="progress-step">
+    <div class="progress-step-dot active">1</div>
+    <span class="progress-step-label active">Setup Files</span>
+  </div>
+  <div class="progress-line"></div>
+  <div class="progress-step">
+    <div class="progress-step-dot">2</div>
+    <span class="progress-step-label">Edit Content</span>
+  </div>
+  <div class="progress-line"></div>
+  <div class="progress-step">
+    <div class="progress-step-dot">3</div>
+    <span class="progress-step-label">GitHub Account</span>
+  </div>
+  <div class="progress-line"></div>
+  <div class="progress-step">
+    <div class="progress-step-dot">4</div>
+    <span class="progress-step-label">Upload Files</span>
+  </div>
+  <div class="progress-line"></div>
+  <div class="progress-step">
+    <div class="progress-step-dot">5</div>
+    <span class="progress-step-label">Enable Pages</span>
+  </div>
+  <div class="progress-line"></div>
+  <div class="progress-step">
+    <div class="progress-step-dot">6</div>
+    <span class="progress-step-label">Go Live! 🚀</span>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="guide-body">
+
+  <!-- ── SECTION 1: SETUP ── -->
+  <div class="guide-section" id="s1">
+    <div class="section-num">// Phase 1</div>
+    <h2 class="section-title">Set Up Your Website Files</h2>
+    <p class="section-desc">Before publishing, you need your files organized correctly on your computer.</p>
+
+    <div class="step-card">
+      <div class="step-card-header">
+        <div class="step-num-badge">1</div>
+        <div>
+          <div class="step-card-title">Download your website files</div>
+          <div class="step-card-sub">Save the HTML files Claude created for you</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <p style="font-size:0.9rem;margin-bottom:0.8rem">You should have these files from our conversation:</p>
+        <ul class="checklist" id="files-checklist">
+          <li onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text"><strong>home-learning.html</strong> — The main website homepage</span></li>
+          <li onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text"><strong>home-learning-features.html</strong> — Logo + all 4 feature pages</span></li>
+        </ul>
+        <div class="info-box info-tip">
+          <span class="info-icon">💡</span>
+          <span>If you haven't downloaded them yet, go back to our chat and click the download icon on each file artifact.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-card-header">
+        <div class="step-num-badge">2</div>
+        <div>
+          <div class="step-card-title">Create a project folder</div>
+          <div class="step-card-sub">Keep everything organized in one place</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <p style="font-size:0.9rem;margin-bottom:0.8rem">On your computer, create a new folder and name it:</p>
+        <div class="code-block">
+          <div class="code-label">Folder Name</div>
+          <pre>home-learning-website</pre>
+        </div>
+        <p style="font-size:0.9rem;margin:0.8rem 0">Move both HTML files into this folder. Then rename the main homepage file:</p>
+        <div class="edit-highlight">
+          <strong>⚠ Important:</strong> Rename <code>home-learning.html</code> to <code>index.html</code> — GitHub Pages looks for this file as the homepage automatically.
+        </div>
+        <p style="font-size:0.85rem;color:var(--slate-500);margin-top:0.5rem">Your folder should look like this:</p>
+        <div class="code-block">
+          <div class="code-label">Folder Structure</div>
+          <pre><span class="hl-green">home-learning-website/</span>
+├── <span class="hl-white">index.html</span>              ← Main homepage (renamed)
+└── <span class="hl-white">home-learning-features.html</span> ← Features dashboard</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── SECTION 2: EDITING ── -->
+  <div class="guide-section" id="s2">
+    <div class="section-num">// Phase 2</div>
+    <h2 class="section-title">How to Edit Your Website Content</h2>
+    <p class="section-desc">You can personalize text, colors, and details using any free text editor — no special software needed.</p>
+
+    <div class="step-card">
+      <div class="step-card-header">
+        <div class="step-num-badge">3</div>
+        <div>
+          <div class="step-card-title">Install a free text editor</div>
+          <div class="step-card-sub">This lets you open and edit your HTML files easily</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <p style="font-size:0.9rem;margin-bottom:1rem">Download and install one of these free editors — <strong>VS Code</strong> is recommended:</p>
+        <a class="link-btn" href="https://code.visualstudio.com" target="_blank">⬇ Download VS Code (Free)</a>
+        <a class="link-btn outline" href="https://notepad-plus-plus.org" target="_blank">⬇ Notepad++ (Windows)</a>
+        <div class="info-box info-success" style="margin-top:1rem">
+          <span class="info-icon">✅</span>
+          <span>VS Code works on Windows, Mac, and Linux. It's free forever and used by millions of web developers worldwide.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-card-header">
+        <div class="step-num-badge">4</div>
+        <div>
+          <div class="step-card-title">Open and edit your files in VS Code</div>
+          <div class="step-card-sub">Change text, colors, and content to personalize your site</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <p style="font-size:0.9rem;margin-bottom:0.8rem"><strong>To open your project:</strong></p>
+        <ol style="font-size:0.9rem;padding-left:1.3rem;display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem">
+          <li>Open VS Code</li>
+          <li>Click <strong>File → Open Folder</strong></li>
+          <li>Select your <strong>home-learning-website</strong> folder</li>
+          <li>Click on <strong>index.html</strong> in the left sidebar to open it</li>
+        </ol>
+
+        <p style="font-size:0.9rem;margin-bottom:0.6rem"><strong>Common things you'll want to edit:</strong></p>
+
+        <div class="edit-highlight">
+          <strong>📝 Change the site title</strong> — Search for <code>&lt;title&gt;</code> and update the name
+        </div>
+        <div class="file-edit-card">
+          <div class="file-edit-header">
+            <div class="file-dot" style="background:#ef4444"></div>
+            <div class="file-dot" style="background:#f59e0b"></div>
+            <div class="file-dot" style="background:#22c55e"></div>
+            <span class="file-name">index.html</span>
+          </div>
+          <div class="file-edit-body">
+<span class="hl-comment">&lt;!-- Find this line and change the title --&gt;</span>
+<span class="hl-green">&lt;title&gt;</span><span class="hl-white">Home Learning — Education for Every Student</span><span class="hl-green">&lt;/title&gt;</span>
+
+<span class="hl-comment">&lt;!-- Change to your own title, e.g.: --&gt;</span>
+<span class="hl-green">&lt;title&gt;</span><span class="hl-amber">Your School Name — Home Learning</span><span class="hl-green">&lt;/title&gt;</span>
+          </div>
+        </div>
+
+        <div class="edit-highlight" style="margin-top:1rem">
+          <strong>🎨 Change the hero headline</strong> — Find the main heading text in the hero section
+        </div>
+        <div class="file-edit-card">
+          <div class="file-edit-header">
+            <div class="file-dot" style="background:#ef4444"></div>
+            <div class="file-dot" style="background:#f59e0b"></div>
+            <div class="file-dot" style="background:#22c55e"></div>
+            <span class="file-name">index.html — Hero Section</span>
+          </div>
+          <div class="file-edit-body">
+<span class="hl-comment">&lt;!-- Find the hero title and update it --&gt;</span>
+<span class="hl-green">&lt;h1 class="hero-title"&gt;</span>
+  Where Every Student<span class="hl-green">&lt;br&gt;</span>
+  <span class="hl-green">&lt;span class="highlight"&gt;</span><span class="hl-white">Learns &amp; Grows</span><span class="hl-green">&lt;/span&gt;</span>
+<span class="hl-green">&lt;/h1&gt;</span>
+
+<span class="hl-comment">&lt;!-- Change to your message, e.g.: --&gt;</span>
+<span class="hl-green">&lt;h1 class="hero-title"&gt;</span>
+  <span class="hl-amber">Quality Education</span><span class="hl-green">&lt;br&gt;</span>
+  <span class="hl-green">&lt;span class="highlight"&gt;</span><span class="hl-amber">Right at Home</span><span class="hl-green">&lt;/span&gt;</span>
+<span class="hl-green">&lt;/h1&gt;</span>
+          </div>
+        </div>
+
+        <div class="edit-highlight" style="margin-top:1rem">
+          <strong>🌈 Change the main color</strong> — Find <code>--amber</code> in the CSS variables at the top
+        </div>
+        <div class="file-edit-card">
+          <div class="file-edit-header">
+            <div class="file-dot" style="background:#ef4444"></div>
+            <div class="file-dot" style="background:#f59e0b"></div>
+            <div class="file-dot" style="background:#22c55e"></div>
+            <span class="file-name">index.html — CSS Variables (top of file)</span>
+          </div>
+          <div class="file-edit-body">
+<span class="hl-green">:root</span> {
+  <span class="hl-comment">/* Change --amber to any color you like */</span>
+  <span class="hl-amber">--amber</span>: <span class="hl-white">#e8a020</span>;  <span class="hl-comment">/* current gold/amber */</span>
+  <span class="hl-amber">--amber</span>: <span class="hl-white">#16a34a</span>;  <span class="hl-comment">/* change to green */</span>
+  <span class="hl-amber">--amber</span>: <span class="hl-white">#2563eb</span>;  <span class="hl-comment">/* change to blue */</span>
+}
+          </div>
+        </div>
+
+        <div class="info-box info-tip" style="margin-top:1rem">
+          <span class="info-icon">💡</span>
+          <span>Use <strong>Ctrl+F</strong> (Windows) or <strong>Cmd+F</strong> (Mac) in VS Code to search for any text you want to change. It's the fastest way to find what you're looking for.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-card-header">
+        <div class="step-num-badge">5</div>
+        <div>
+          <div class="step-card-title">Preview your changes in a browser</div>
+          <div class="step-card-sub">Always check how your edits look before publishing</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <ol style="font-size:0.9rem;padding-left:1.3rem;display:flex;flex-direction:column;gap:0.5rem">
+          <li>After making changes, save the file: <strong>Ctrl+S</strong> (Windows) or <strong>Cmd+S</strong> (Mac)</li>
+          <li>Find the file in your folder</li>
+          <li>Double-click <strong>index.html</strong> — it opens in your browser</li>
+          <li>Review your changes. Go back to VS Code to adjust if needed</li>
+          <li>Repeat until you're happy with the result</li>
+        </ol>
+        <div class="info-box info-success" style="margin-top:0.8rem">
+          <span class="info-icon">✅</span>
+          <span>You can install the <strong>Live Server</strong> extension in VS Code — it automatically refreshes your browser every time you save. Search "Live Server" in VS Code's Extensions panel.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── SECTION 3: GITHUB ── -->
+  <div class="guide-section" id="s3">
+    <div class="section-num">// Phase 3</div>
+    <h2 class="section-title">Create a Free GitHub Account</h2>
+    <p class="section-desc">GitHub is where your website will be stored and hosted — completely free.</p>
+
+    <div class="step-card">
+      <div class="step-card-header">
+        <div class="step-num-badge">6</div>
+        <div>
+          <div class="step-card-title">Sign up for GitHub</div>
+          <div class="step-card-sub">Takes less than 2 minutes — no credit card needed</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <a class="link-btn" href="https://github.com/signup" target="_blank">🐙 Create Free GitHub Account</a>
+        <ol style="font-size:0.9rem;padding-left:1.3rem;margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem">
+          <li>Go to <strong>github.com/signup</strong></li>
+          <li>Enter your email address and create a password</li>
+          <li>Choose a <strong>username</strong> — this becomes part of your website URL<br/>
+            <span style="color:var(--slate-500);font-size:0.82rem">e.g. username <code>homelearning</code> → site will be at <code>homelearning.github.io</code></span>
+          </li>
+          <li>Verify your email address</li>
+          <li>Select the <strong>Free plan</strong> when asked</li>
+        </ol>
+        <div class="info-box info-warn">
+          <span class="info-icon">⚠️</span>
+          <span>Choose your username carefully — it becomes part of your public website address. Keep it short, professional, and related to your project (e.g. <strong>homelearning</strong> or <strong>hlplatform</strong>).</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── SECTION 4: UPLOAD ── -->
+  <div class="guide-section" id="s4">
+    <div class="section-num">// Phase 4</div>
+    <h2 class="section-title">Create a Repository &amp; Upload Files</h2>
+    <p class="section-desc">A "repository" is just GitHub's word for a project folder. This is where your website files live.</p>
+
+    <div class="step-card">
+      <div class="step-card-header">
+        <div class="step-num-badge">7</div>
+        <div>
+          <div class="step-card-title">Create a new repository</div>
+          <div class="step-card-sub">This is your website's home on GitHub</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <ol style="font-size:0.9rem;padding-left:1.3rem;display:flex;flex-direction:column;gap:0.6rem">
+          <li>Log into GitHub and click the <strong>green "New"</strong> button (top left)</li>
+          <li>For <strong>Repository name</strong>, type exactly:
+            <div class="code-block" style="margin:0.4rem 0">
+              <pre><span class="hl-amber">YOUR-USERNAME</span><span class="hl-white">.github.io</span></pre>
+            </div>
+            <span style="font-size:0.82rem;color:var(--slate-500)">Replace YOUR-USERNAME with your actual GitHub username. This exact format is required for GitHub Pages.</span>
+          </li>
+          <li>Set visibility to <strong>Public</strong></li>
+          <li>Check <strong>"Add a README file"</strong></li>
+          <li>Click <strong>"Create repository"</strong></li>
+        </ol>
+        <div class="info-box info-success" style="margin-top:0.8rem">
+          <span class="info-icon">✅</span>
+          <span>Example: If your username is <strong>homelearning</strong>, your repository name must be <strong>homelearning.github.io</strong> and your site will live at <strong>https://homelearning.github.io</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-card-header">
+        <div class="step-num-badge">8</div>
+        <div>
+          <div class="step-card-title">Upload your website files</div>
+          <div class="step-card-sub">Drag and drop — no technical commands needed</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <ol style="font-size:0.9rem;padding-left:1.3rem;display:flex;flex-direction:column;gap:0.6rem">
+          <li>Inside your new repository, click <strong>"Add file" → "Upload files"</strong></li>
+          <li>Open your <strong>home-learning-website</strong> folder on your computer</li>
+          <li>Select <strong>both files</strong> and drag them into the GitHub upload area:
+            <ul style="margin-top:0.4rem;padding-left:1.2rem;color:var(--slate-500);font-size:0.85rem">
+              <li><code>index.html</code></li>
+              <li><code>home-learning-features.html</code></li>
+            </ul>
+          </li>
+          <li>Scroll down to <strong>"Commit changes"</strong></li>
+          <li>In the message box type: <code>Add Home Learning website files</code></li>
+          <li>Click the green <strong>"Commit changes"</strong> button</li>
+        </ol>
+        <div class="info-box info-tip">
+          <span class="info-icon">💡</span>
+          <span>A "commit" is just GitHub's way of saving your files. Think of it like pressing Save — except it also keeps a full history of every change you make.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── SECTION 5: PAGES ── -->
+  <div class="guide-section" id="s5">
+    <div class="section-num">// Phase 5</div>
+    <h2 class="section-title">Enable GitHub Pages</h2>
+    <p class="section-desc">One simple setting turns your repository into a live public website.</p>
+
+    <div class="step-card">
+      <div class="step-card-header">
+        <div class="step-num-badge">9</div>
+        <div>
+          <div class="step-card-title">Turn on GitHub Pages</div>
+          <div class="step-card-sub">Your site goes live in under 60 seconds</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <ol style="font-size:0.9rem;padding-left:1.3rem;display:flex;flex-direction:column;gap:0.6rem">
+          <li>In your repository, click the <strong>⚙ Settings</strong> tab (top menu)</li>
+          <li>In the left sidebar, click <strong>"Pages"</strong></li>
+          <li>Under <strong>"Source"</strong>, click the dropdown and select <strong>"Deploy from a branch"</strong></li>
+          <li>Under <strong>"Branch"</strong>, select <strong>main</strong> and keep the folder as <strong>/ (root)</strong></li>
+          <li>Click <strong>Save</strong></li>
+        </ol>
+        <div class="info-box info-success" style="margin-top:0.8rem">
+          <span class="info-icon">🚀</span>
+          <span>After saving, GitHub will show a banner at the top of the Pages settings saying your site is being deployed. Refresh after 60 seconds and you'll see your live URL!</span>
+        </div>
+        <div class="info-box info-warn" style="margin-top:0.5rem">
+          <span class="info-icon">⏱</span>
+          <span>It can take <strong>1–3 minutes</strong> for your site to go live the first time. Subsequent updates are usually faster — under 30 seconds.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── SECTION 6: LIVE ── -->
+  <div class="guide-section" id="s6">
+    <div class="section-num">// Phase 6</div>
+    <h2 class="section-title">Your Site is Live! 🎉</h2>
+    <p class="section-desc">Visit your website, share it with students, and know how to update it anytime.</p>
+
+    <div class="step-card">
+      <div class="step-card-header">
+        <div class="step-num-badge">10</div>
+        <div>
+          <div class="step-card-title">Visit your live website</div>
+          <div class="step-card-sub">Your public URL follows this exact format</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="code-block">
+          <div class="code-label">Your Live Website URL</div>
+          <pre>https://<span class="hl-amber">YOUR-USERNAME</span>.github.io</pre>
+        </div>
+        <p style="font-size:0.9rem;margin:0.8rem 0">And the features dashboard is at:</p>
+        <div class="code-block">
+          <pre>https://<span class="hl-amber">YOUR-USERNAME</span>.github.io/home-learning-features.html</pre>
+        </div>
+        <p style="font-size:0.88rem;color:var(--slate-500);margin-top:0.8rem">Share these links with your students, parents, and teachers — they work on any device, anywhere in the world.</p>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-card-header">
+        <div class="step-num-badge">11</div>
+        <div>
+          <div class="step-card-title">How to update your site in the future</div>
+          <div class="step-card-sub">Making changes is just as simple as the first upload</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <ol style="font-size:0.9rem;padding-left:1.3rem;display:flex;flex-direction:column;gap:0.5rem">
+          <li>Edit your file in VS Code and save it</li>
+          <li>Go to your GitHub repository</li>
+          <li>Click on the file you want to update (e.g. <code>index.html</code>)</li>
+          <li>Click the <strong>pencil ✏ icon</strong> to edit, OR click <strong>"Add file → Upload files"</strong> to replace it</li>
+          <li>Upload your updated file and commit the changes</li>
+          <li>Wait ~30 seconds, then refresh your live site — changes appear automatically!</li>
+        </ol>
+        <div class="info-box info-tip">
+          <span class="info-icon">💡</span>
+          <span>Bookmark your repository page at <strong>github.com/YOUR-USERNAME/YOUR-USERNAME.github.io</strong> so you can always get back to it quickly to make updates.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── QUICK REFERENCE ── -->
+  <div class="guide-section">
+    <div class="section-num">// Quick Reference</div>
+    <h2 class="section-title">Editing Cheat Sheet</h2>
+    <p class="section-desc">The most common things you'll want to edit and exactly where to find them.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+      <div class="step-card" style="margin-bottom:0">
+        <div style="font-weight:700;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem"><span>📝</span> Text Changes</div>
+        <ul style="font-size:0.85rem;padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem;color:var(--slate-700)">
+          <li>Site title → search <code>&lt;title&gt;</code></li>
+          <li>Hero headline → search <code>hero-title</code></li>
+          <li>Description text → search <code>hero-sub</code></li>
+          <li>Subject names → search subject card text</li>
+          <li>Footer text → search <code>&lt;footer&gt;</code></li>
+        </ul>
+      </div>
+      <div class="step-card" style="margin-bottom:0">
+        <div style="font-weight:700;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem"><span>🎨</span> Style Changes</div>
+        <ul style="font-size:0.85rem;padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem;color:var(--slate-700)">
+          <li>Main color → change <code>--amber</code> value</li>
+          <li>Background → change <code>--cream</code> value</li>
+          <li>Text color → change <code>--ink</code> value</li>
+          <li>Font → find <code>fonts.googleapis.com</code></li>
+          <li>Logo text → search <code>nav-logo-text</code></li>
+        </ul>
+      </div>
+      <div class="step-card" style="margin-bottom:0">
+        <div style="font-weight:700;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem"><span>⌨️</span> VS Code Shortcuts</div>
+        <ul style="font-size:0.85rem;padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem;color:var(--slate-700)">
+          <li><code>Ctrl+F</code> → Find text</li>
+          <li><code>Ctrl+H</code> → Find &amp; Replace</li>
+          <li><code>Ctrl+S</code> → Save file</li>
+          <li><code>Ctrl+Z</code> → Undo change</li>
+          <li><code>Alt+Z</code> → Toggle word wrap</li>
+        </ul>
+      </div>
+      <div class="step-card" style="margin-bottom:0">
+        <div style="font-weight:700;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem"><span>🔗</span> Important Links</div>
+        <ul style="font-size:0.85rem;padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem;color:var(--slate-700)">
+          <li><a href="https://github.com" target="_blank" style="color:var(--green-700)">github.com</a> — Your dashboard</li>
+          <li><a href="https://code.visualstudio.com" target="_blank" style="color:var(--green-700)">VS Code download</a></li>
+          <li><a href="https://coolors.co" target="_blank" style="color:var(--green-700)">coolors.co</a> — Color picker</li>
+          <li><a href="https://fonts.google.com" target="_blank" style="color:var(--green-700)">fonts.google.com</a> — Free fonts</li>
+          <li><a href="https://www.freeformatter.com/html-formatter.html" target="_blank" style="color:var(--green-700)">HTML Formatter</a> — Clean up code</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- FINAL CHECKLIST -->
+  <div class="guide-section">
+    <div class="section-num">// Launch Checklist</div>
+    <h2 class="section-title">Ready to Go Live? ✅</h2>
+    <p class="section-desc">Tick off each item before sharing your site with the world.</p>
+    <ul class="checklist" id="launch-checklist">
+      <li onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Both HTML files are in my project folder</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Main file is renamed to <code>index.html</code></span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">I've edited the site title and headline text</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">I've previewed the site in my browser and it looks great</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">GitHub account created with a good username</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Repository created as <code>username.github.io</code></span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Both files uploaded and committed</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">GitHub Pages enabled in Settings → Pages</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Visited my live URL and it works!</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Shared the link with my first students 🎉</span></li>
+    </ul>
+  </div>
+
+  <!-- CONGRATS -->
+  <div class="congrats-banner">
+    <div style="font-size:3rem;margin-bottom:0.8rem">🚀</div>
+    <h2>Congratulations!</h2>
+    <p>Your Home Learning platform is now live and accessible to students all around the world. You've built something truly meaningful — well done!</p>
+    <div style="display:flex;justify-content:center;gap:0.8rem;flex-wrap:wrap">
+      <a class="link-btn" href="https://github.com" target="_blank">Open GitHub →</a>
+      <a class="link-btn" style="background:transparent;border:2px solid var(--green-400);color:var(--green-400)" href="https://code.visualstudio.com" target="_blank">Download VS Code →</a>
+    </div>
+  </div>
+
+  <p style="text-align:center;color:var(--slate-500);font-size:0.82rem;margin-top:2rem;padding-bottom:2rem">
+    Need more help? Come back to Claude anytime — we'll keep building together. 🌿
+  </p>
+
+</div>
+
+<script>
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+}
+</script>
+</body>
+</html>

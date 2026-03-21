@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Home Learning — Education for Every Student</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream: #fdf8f0;
+    --ink: #1a1209;
+    --amber: #e8a020;
+    --amber-light: #ffd17a;
+    --sage: #4a7c59;
+    --sage-light: #c8e6d4;
+    --cobalt: #1e3a8a;
+    --cobalt-light: #dbeafe;
+    --rose: #c0392b;
+    --rose-light: #fde8e8;
+    --warm-gray: #8b7d6b;
+    --border: #e8ddd0;
+    --shadow: rgba(26,18,9,0.12);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
+
+  /* NOISE */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3rem;
+    background: rgba(253,248,240,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1.5px solid var(--border);
+    z-index: 1000;
+    animation: slideDown 0.6s ease both;
+  }
+  @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+  .nav-logo-mark {
+    width: 36px; height: 36px; background: var(--amber); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.1rem; color: var(--ink);
+  }
+  .nav-logo-text { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.1rem; color: var(--ink); }
+  .nav-logo-text span { color: var(--amber); }
+
+  .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--warm-gray); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { background: var(--ink) !important; color: var(--cream) !important; padding: 0.55rem 1.3rem !important; border-radius: 6px !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    gap: 4rem; position: relative; overflow: hidden;
+  }
+  .hero-bg-shape {
+    position: absolute; top: -100px; right: -150px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, var(--amber-light) 0%, transparent 70%);
+    border-radius: 50%; opacity: 0.4;
+    animation: pulse 6s ease-in-out infinite alternate;
+  }
+  @keyframes pulse { from { transform: scale(1) rotate(0deg); } to { transform: scale(1.1) rotate(15deg); } }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--sage-light); color: var(--sage);
+    padding: 0.35rem 1rem; border-radius: 999px;
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    margin-bottom: 1.5rem; animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 900; line-height: 1.1;
+    margin-bottom: 1.5rem; animation: fadeUp 0.8s 0.35s ease both;
+  }
+  .hero-title .highlight { color: var(--amber); position: relative; }
+  .hero-title .highlight::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 4px; background: var(--amber); border-radius: 2px; opacity: 0.4;
+  }
+  .hero-sub {
+    font-size: 1.1rem; line-height: 1.7; color: var(--warm-gray);
+    max-width: 480px; margin-bottom: 2.5rem; animation: fadeUp 0.8s 0.5s ease both;
+  }
+  .hero-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.8s 0.65s ease both; }
+
+  .btn-primary {
+    background: var(--ink); color: var(--cream); padding: 0.85rem 2rem;
+    border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; font-weight: 600; cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s; text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--shadow); }
+  .btn-secondary {
+    background: transparent; color: var(--ink); padding: 0.85rem 2rem;
+    border: 2px solid var(--border); border-radius: 8px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--ink); background: var(--ink); color: var(--cream); }
+
+  .hero-stats { display: flex; gap: 2.5rem; margin-top: 3rem; animation: fadeUp 0.8s 0.8s ease both; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--ink); }
+  .stat-label { font-size: 0.8rem; color: var(--warm-gray); font-weight: 500; }
+
+  /* HERO CARDS */
+  .hero-visual { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; animation: fadeUp 0.8s 0.4s ease both; }
+  .subject-card {
+    background: #fff; border: 1.5px solid var(--border); border-radius: 16px; padding: 1.4rem;
+    transition: transform 0.25s, box-shadow 0.25s; cursor: pointer;
+  }
+  .subject-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px var(--shadow); }
+  .subject-card.math   { --card-color: var(--cobalt);  --card-bg: var(--cobalt-light); }
+  .subject-card.sci    { --card-color: var(--sage);    --card-bg: var(--sage-light);   }
+  .subject-card.lang   { --card-color: var(--rose);    --card-bg: var(--rose-light);   }
+  .subject-card.art    { --card-color: var(--amber);   --card-bg: #fff8e7;             }
+  .subject-card.hist   { --card-color: #7c3aed;        --card-bg: #ede9fe;             }
+  .subject-card.code   { --card-color: #0891b2;        --card-bg: #cffafe;             }
+  .card-icon {
+    width: 42px; height: 42px; background: var(--card-bg); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 0.8rem;
+  }
+  .card-label { font-weight: 700; font-size: 0.9rem; color: var(--ink); }
+  .card-sub { font-size: 0.78rem; color: var(--warm-gray); margin-top: 0.2rem; }
+  .card-tag {
+    margin-top: 0.8rem; display: inline-block; font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; background: var(--card-bg); color: var(--card-color);
+    padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 500;
+  }
+  .subject-card.featured {
+    grid-column: span 2; display: flex; align-items: center; gap: 1.2rem;
+    background: var(--ink); border-color: var(--ink); color: var(--cream);
+  }
+  .subject-card.featured .card-label { color: var(--cream); }
+  .subject-card.featured .card-sub   { color: rgba(253,248,240,0.6); }
+  .subject-card.featured .card-icon  { background: rgba(255,255,255,0.12); font-size: 1.8rem; width: 52px; height: 52px; }
+  .subject-card.featured .card-tag   { background: var(--amber); color: var(--ink); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SECTIONS */
+  section { padding: 6rem 3rem; }
+  .section-label { font-family: 'DM Mono', monospace; font-size: 0.78rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--amber); margin-bottom: 0.8rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 900; line-height: 1.2; margin-bottom: 1rem; }
+  .section-desc { font-size: 1.05rem; color: var(--warm-gray); max-width: 560px; line-height: 1.7; }
+
+  /* SUBJECTS */
+  .subjects-section { background: #fff; }
+  .subjects-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem; }
+  .subjects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.2rem; }
+  .subj-item {
+    border: 1.5px solid var(--border); border-radius: 14px; padding: 1.6rem 1.4rem;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; cursor: pointer; background: var(--cream);
+  }
+  .subj-item:hover { transform: translateY(-3px); box-shadow: 0 10px 28px var(--shadow); border-color: var(--amber); }
+  .subj-emoji { font-size: 2rem; margin-bottom: 0.8rem; display: block; }
+  .subj-name { font-weight: 700; font-size: 1rem; margin-bottom: 0.3rem; }
+  .subj-count { font-size: 0.8rem; color: var(--warm-gray); }
+  .subj-bar { margin-top: 1rem; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .subj-bar-fill { height: 100%; background: var(--amber); border-radius: 2px; transition: width 1.2s ease; width: 0%; }
+
+  /* HOW IT WORKS */
+  .how-section { background: var(--cream); }
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem; margin-top: 3.5rem; position: relative;
+  }
+  .steps-grid::before {
+    content: ''; position: absolute; top: 40px; left: 5%; right: 5%;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--amber) 0, var(--amber) 8px, transparent 8px, transparent 16px);
+    z-index: 0;
+  }
+  .step {
+    background: #fff; border: 1.5px solid var(--border); border-radius: 16px; padding: 2rem;
+    text-align: center; position: relative; z-index: 1; transition: transform 0.2s;
+  }
+  .step:hover { transform: translateY(-4px); }
+  .step-num {
+    width: 56px; height: 56px; background: var(--ink); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem;
+    font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; color: var(--amber);
+    border: 4px solid var(--cream); box-shadow: 0 0 0 2px var(--ink);
+  }
+  .step h3 { font-weight: 700; margin-bottom: 0.6rem; }
+  .step p { font-size: 0.9rem; color: var(--warm-gray); line-height: 1.6; }
+
+  /* TOOLS */
+  .tools-section { background: var(--ink); color: var(--cream); }
+  .tools-section .section-title { color: var(--cream); }
+  .tools-section .section-desc  { color: rgba(253,248,240,0.6); }
+  .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; margin-top: 3rem; }
+  .tool-card {
+    border: 1.5px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.8rem;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .tool-card:hover { background: rgba(255,255,255,0.06); border-color: var(--amber); }
+  .tool-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+  .tool-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; color: var(--cream); }
+  .tool-desc  { font-size: 0.85rem; color: rgba(253,248,240,0.5); line-height: 1.6; }
+  .tool-tag { margin-top: 1.2rem; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--amber); background: rgba(232,160,32,0.15); padding: 0.2rem 0.6rem; border-radius: 4px; display: inline-block; }
+
+  /* GRADES */
+  .grades-section { background: #fff; }
+  .grades-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 1rem; margin-top: 3rem; }
+  .grade-pill {
+    background: var(--cream); border: 1.5px solid var(--border); border-radius: 12px;
+    padding: 1.4rem 1rem; text-align: center; cursor: pointer; transition: all 0.2s; font-weight: 700;
+  }
+  .grade-pill:hover, .grade-pill.active { background: var(--ink); color: var(--amber); border-color: var(--ink); transform: scale(1.04); }
+  .grade-pill .grade-name { font-size: 1rem; }
+  .grade-pill .grade-age { font-size: 0.75rem; color: var(--warm-gray); margin-top: 0.2rem; font-weight: 400; }
+  .grade-pill:hover .grade-age, .grade-pill.active .grade-age { color: rgba(232,160,32,0.7); }
+
+  /* TESTIMONIALS */
+  .testi-section { background: var(--cream); }
+  .testi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .testi-card { background: #fff; border: 1.5px solid var(--border); border-radius: 16px; padding: 1.8rem; transition: transform 0.2s; }
+  .testi-card:hover { transform: translateY(-3px); }
+  .testi-stars { color: var(--amber); font-size: 1rem; margin-bottom: 1rem; letter-spacing: 2px; }
+  .testi-text { font-size: 0.95rem; line-height: 1.7; color: var(--ink); font-style: italic; margin-bottom: 1.2rem; }
+  .testi-author { display: flex; align-items: center; gap: 0.8rem; }
+  .testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+  .testi-name { font-weight: 700; font-size: 0.9rem; }
+  .testi-role { font-size: 0.78rem; color: var(--warm-gray); }
+
+  /* CTA */
+  .cta-section { background: var(--amber); text-align: center; padding: 5rem 3rem; position: relative; overflow: hidden; }
+  .cta-section::before { content: '📚'; position: absolute; font-size: 20rem; opacity: 0.06; top: -4rem; left: -4rem; pointer-events: none; }
+  .cta-section::after  { content: '🎓'; position: absolute; font-size: 18rem; opacity: 0.06; bottom: -3rem; right: -3rem; pointer-events: none; }
+  .cta-section .section-label { color: rgba(26,18,9,0.6); }
+  .cta-section .section-title { color: var(--ink); max-width: 600px; margin: 0 auto 1rem; }
+  .cta-section p { color: rgba(26,18,9,0.7); max-width: 500px; margin: 0 auto 2rem; line-height: 1.7; }
+  .btn-dark {
+    background: var(--ink); color: var(--cream); padding: 1rem 2.5rem;
+    border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 700; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-dark:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,18,9,0.25); }
+
+  /* FOOTER */
+  footer { background: var(--ink); color: rgba(253,248,240,0.6); padding: 4rem 3rem 2rem; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-brand-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--cream); margin-bottom: 0.8rem; }
+  .footer-brand-text span { color: var(--amber); }
+  .footer-desc { font-size: 0.88rem; line-height: 1.7; }
+  .footer-col h4 { color: var(--cream); font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .footer-col ul a { text-decoration: none; color: rgba(253,248,240,0.5); font-size: 0.88rem; transition: color 0.2s; }
+  .footer-col ul a:hover { color: var(--amber); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; flex-wrap: wrap; gap: 0.5rem; }
+  .footer-bottom span:last-child { color: var(--amber); }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; text-align: center; }
+    .hero-sub { margin: 0 auto 2.5rem; }
+    .hero-actions, .hero-stats { justify-content: center; }
+    .hero-visual { grid-template-columns: 1fr 1fr; }
+    section { padding: 4rem 1.5rem; }
+    .subjects-header { flex-direction: column; align-items: flex-start; }
+    .steps-grid::before { display: none; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .hero-visual { display: none; }
+    .footer-top { grid-template-columns: 1fr; }
+  }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">H</div>
+    <span class="nav-logo-text">Home<span>Learning</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#subjects">Subjects</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#grades">Grade Levels</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact" class="nav-cta">Get Started</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-shape"></div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ Free Educational Platform</div>
+    <h1 class="hero-title">Where Every Student<br><span class="highlight">Learns &amp; Grows</span></h1>
+    <p class="hero-sub">Home Learning is your trusted academic companion — offering expert guidance, study tools, and curriculum-aligned resources to help students excel from kindergarten through senior year.</p>
+    <div class="hero-actions">
+      <a href="#subjects" class="btn-primary">Explore Subjects →</a>
+      <a href="#how" class="btn-secondary">How It Works</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Subjects Covered</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">K–12</div>
+        <div class="stat-label">All Grade Levels</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Curriculum Aligned</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="subject-card featured">
+      <div class="card-icon">🎓</div>
+      <div>
+        <div class="card-label">AI-Powered Homework Help</div>
+        <div class="card-sub">Step-by-step solutions &amp; explanations</div>
+        <div class="card-tag">NEW FEATURE</div>
+      </div>
+    </div>
+    <div class="subject-card math">
+      <div class="card-icon">➕</div>
+      <div class="card-label">Mathematics</div>
+      <div class="card-sub">Algebra, Geometry, Calculus</div>
+      <div class="card-tag">Core Subject</div>
+    </div>
+    <div class="subject-card sci">
+      <div class="card-icon">🔬</div>
+      <div class="card-label">Sciences</div>
+      <div class="card-sub">Biology, Chemistry, Physics</div>
+      <div class="card-tag">Lab Ready</div>
+    </div>
+    <div class="subject-card lang">
+      <div class="card-icon">📝</div>
+      <div class="card-label">English &amp; Writing</div>
+      <div class="card-sub">Essays, Grammar, Literature</div>
+      <div class="card-tag">All Levels</div>
+    </div>
+    <div class="subject-card hist">
+      <div class="card-icon">🌍</div>
+      <div class="card-label">History &amp; Geography</div>
+      <div class="card-sub">World, US, Civics</div>
+      <div class="card-tag">In-Depth</div>
+    </div>
+    <div class="subject-card art">
+      <div class="card-icon">🎨</div>
+      <div class="card-label">Arts &amp; Music</div>
+      <div class="card-sub">Creative expression tools</div>
+      <div class="card-tag">Creative</div>
+    </div>
+    <div class="subject-card code">
+      <div class="card-icon">💻</div>
+      <div class="card-label">Coding &amp; Tech</div>
+      <div class="card-sub">Python, Web, Scratch</div>
+      <div class="card-tag">Future Skills</div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBJECTS -->
+<section class="subjects-section" id="subjects">
+  <div class="subjects-header reveal">
+    <div>
+      <div class="section-label">// Curriculum Library</div>
+      <h2 class="section-title">Every Subject,<br>Every Grade</h2>
+    </div>
+    <p class="section-desc">From core academics to electives — we've got you covered with comprehensive, standards-aligned materials.</p>
+  </div>
+  <div class="subjects-grid reveal">
+    <div class="subj-item"><span class="subj-emoji">➕</span><div class="subj-name">Mathematics</div><div class="subj-count">Arithmetic · Algebra · Calculus · Statistics</div><div class="subj-bar"><div class="subj-bar-fill" data-width="92%"></div></div></div>
+    <div class="subj-item"><span class="subj-emoji">📖</span><div class="subj-name">English Language Arts</div><div class="subj-count">Reading · Writing · Grammar · Literature</div><div class="subj-bar"><div class="subj-bar-fill" data-width="88%"></div></div></div>
+    <div class="subj-item"><span class="subj-emoji">🔬</span><div class="subj-name">Science</div><div class="subj-count">Biology · Chemistry · Physics · Earth Sci</div><div class="subj-bar"><div class="subj-bar-fill" data-width="85%"></div></div></div>
+    <div class="subj-item"><span class="subj-emoji">🌍</span><div class="subj-name">Social Studies</div><div class="subj-count">History · Geography · Civics · Economics</div><div class="subj-bar"><div class="subj-bar-fill" data-width="80%"></div></div></div>
+    <div class="subj-item"><span class="subj-emoji">🌐</span><div class="subj-name">Foreign Languages</div><div class="subj-count">Spanish · French · Mandarin · German</div><div class="subj-bar"><div class="subj-bar-fill" data-width="75%"></div></div></div>
+    <div class="subj-item"><span class="subj-emoji">💻</span><div class="subj-name">Computer Science</div><div class="subj-count">Coding · Web Dev · Data Science · AI</div><div class="subj-bar"><div class="subj-bar-fill" data-width="70%"></div></div></div>
+    <div class="subj-item"><span class="subj-emoji">🎨</span><div class="subj-name">Arts &amp; Creative</div><div class="subj-count">Visual Art · Music · Drama · Design</div><div class="subj-bar"><div class="subj-bar-fill" data-width="68%"></div></div></div>
+    <div class="subj-item"><span class="subj-emoji">🏃</span><div class="subj-name">Health &amp; PE</div><div class="subj-count">Health Ed · Fitness · Nutrition · Sports</div><div class="subj-bar"><div class="subj-bar-fill" data-width="60%"></div></div></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div style="text-align:center" class="reveal">
+    <div class="section-label">// Simple Process</div>
+    <h2 class="section-title">Learning Made Easy in 4 Steps</h2>
+    <p class="section-desc" style="margin:0 auto">Whether you're a student, parent, or teacher — getting support is fast, simple, and effective.</p>
+  </div>
+  <div class="steps-grid reveal">
+    <div class="step"><div class="step-num">1</div><h3>Choose Your Subject</h3><p>Pick from our comprehensive library covering every core and elective subject taught in schools today.</p></div>
+    <div class="step"><div class="step-num">2</div><h3>Select Your Grade Level</h3><p>Content is carefully tailored to your grade — whether you're in elementary, middle, or high school.</p></div>
+    <div class="step"><div class="step-num">3</div><h3>Get Expert Guidance</h3><p>Access step-by-step explanations, practice problems, study guides, and worked examples instantly.</p></div>
+    <div class="step"><div class="step-num">4</div><h3>Track Your Progress</h3><p>Monitor improvement, celebrate milestones, and identify areas that need more practice over time.</p></div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools-section" id="tools">
+  <div class="reveal">
+    <div class="section-label">// Operational Tools</div>
+    <h2 class="section-title">Everything You Need<br>In One Place</h2>
+    <p class="section-desc">Designed to support students, parents, and educators with a full suite of learning and management tools.</p>
+  </div>
+  <div class="tools-grid reveal">
+    <div class="tool-card"><div class="tool-icon">📋</div><div class="tool-title">Homework Tracker</div><div class="tool-desc">Organize assignments by subject and due date. Never miss a submission again with smart reminders.</div><div class="tool-tag">Productivity</div></div>
+    <div class="tool-card"><div class="tool-icon">📝</div><div class="tool-title">Essay Builder</div><div class="tool-desc">Structured templates, outline tools, and writing prompts to help craft compelling essays at any level.</div><div class="tool-tag">Writing</div></div>
+    <div class="tool-card"><div class="tool-icon">🧮</div><div class="tool-title">Math Solver</div><div class="tool-desc">Work through equations step by step with visual breakdowns — algebra, fractions, calculus and beyond.</div><div class="tool-tag">Mathematics</div></div>
+    <div class="tool-card"><div class="tool-icon">🃏</div><div class="tool-title">Flashcard Studio</div><div class="tool-desc">Create, share, and study digital flashcards. Spaced repetition algorithm maximizes memory retention.</div><div class="tool-tag">Study Aid</div></div>
+    <div class="tool-card"><div class="tool-icon">📊</div><div class="tool-title">Progress Dashboard</div><div class="tool-desc">Visual analytics for parents and students to monitor performance trends across all subjects over time.</div><div class="tool-tag">Analytics</div></div>
+    <div class="tool-card"><div class="tool-icon">📅</div><div class="tool-title">Study Planner</div><div class="tool-desc">Build personalized weekly study schedules aligned with test dates, exams, and school events.</div><div class="tool-tag">Scheduling</div></div>
+    <div class="tool-card"><div class="tool-icon">🎯</div><div class="tool-title">Quiz Generator</div><div class="tool-desc">Instantly generate custom quizzes on any topic or chapter. Test knowledge before the real exam.</div><div class="tool-tag">Assessment</div></div>
+    <div class="tool-card"><div class="tool-icon">👨‍👩‍👧</div><div class="tool-title">Parent Portal</div><div class="tool-desc">Monitor your child's activity, assignments, and academic progress from a dedicated parent dashboard.</div><div class="tool-tag">Family</div></div>
+    <div class="tool-card"><div class="tool-icon">🏫</div><div class="tool-title">Teacher Workspace</div><div class="tool-desc">Design lesson plans, distribute resources, and communicate with students — all from one interface.</div><div class="tool-tag">Educators</div></div>
+  </div>
+</section>
+
+<!-- GRADES -->
+<section class="grades-section" id="grades">
+  <div style="text-align:center" class="reveal">
+    <div class="section-label">// Grade Levels</div>
+    <h2 class="section-title">Kindergarten Through 12th Grade</h2>
+    <p class="section-desc" style="margin:0 auto">Content, tools, and language tailored precisely to each stage of a student's academic journey.</p>
+  </div>
+  <div class="grades-grid reveal">
+    <div class="grade-pill active" onclick="toggleGrade(this)"><div class="grade-name">Kindergarten</div><div class="grade-age">Ages 5–6</div></div>
+    <div class="grade-pill" onclick="toggleGrade(this)"><div class="grade-name">Grade 1</div><div class="grade-age">Ages 6–7</div></div>
+    <div class="grade-pill" onclick="toggleGrade(this)"><div class="grade-name">Grade 2</div><div class="grade-age">Ages 7–8</div></div>
+    <div class="grade-pill" onclick="toggleGrade(this)"><div class="grade-name">Grade 3</div><div class="grade-age">Ages 8–9</div></div>
+    <div class="grade-pill" onclick="toggleGrade(this)"><div class="grade-name">Grade 4</div><div class="grade-age">Ages 9–10</div></div>
+    <div class="grade-pill" onclick="toggleGrade(this)"><div class="grade-name">Grade 5</div><div class="grade-age">Ages 10–11</div></div>
+    <div class="grade-pill" onclick="toggleGrade(this)"><div class="grade-name">Grade 6</div><div class="grade-age">Ages 11–12</div></div>
+    <div class="grade-pill" onclick="toggleGrade(this)"><div class="grade-name">Grade 7</div><div class="grade-age">Ages 12–13</div></div>
+    <div class="grade-pill" onclick="toggleGrade(this)"><div class="grade-name">Grade 8</div><div class="grade-age">Ages 13–14</div></div>
+    <div class="grade-pill" onclick="toggleGrade(this)"><div class="grade-name">Grade 9</div><div class="grade-age">Ages 14–15</div></div>
+    <div class="grade-pill" onclick="toggleGrade(this)"><div class="grade-name">Grade 10</div><div class="grade-age">Ages 15–16</div></div>
+    <div class="grade-pill" onclick="toggleGrade(this)"><div class="grade-name">Grade 11</div><div class="grade-age">Ages 16–17</div></div>
+    <div class="grade-pill" onclick="toggleGrade(this)"><div class="grade-name">Grade 12</div><div class="grade-age">Ages 17–18</div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section" id="testimonials">
+  <div class="reveal">
+    <div class="section-label">// Success Stories</div>
+    <h2 class="section-title">Loved by Students,<br>Trusted by Parents</h2>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Home Learning completely transformed how my daughter approaches homework. The step-by-step explanations in math finally made things click for her!"</p><div class="testi-author"><div class="testi-avatar">👩</div><div><div class="testi-name">Maria T.</div><div class="testi-role">Parent of a 7th Grader</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"I went from failing Chemistry to a B+ in one semester. The way this platform breaks down complex topics into simple steps is incredible."</p><div class="testi-author"><div class="testi-avatar">🧑</div><div><div class="testi-name">Jordan K.</div><div class="testi-role">10th Grade Student</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"As a teacher, I recommend Home Learning to all my students. The resources are aligned with our curriculum and save me so much prep time."</p><div class="testi-author"><div class="testi-avatar">👨‍🏫</div><div><div class="testi-name">Mr. James Osei</div><div class="testi-role">High School English Teacher</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"The homework tracker and study planner keep my son organized like never before. His grades improved across the board within just two months."</p><div class="testi-author"><div class="testi-avatar">👩‍👦</div><div><div class="testi-name">Sandra M.</div><div class="testi-role">Parent of a 5th Grader</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"The essay builder literally saved my college application essays. It guided me through brainstorming all the way to the final draft. A lifesaver!"</p><div class="testi-author"><div class="testi-avatar">👩‍🎓</div><div><div class="testi-name">Aisha L.</div><div class="testi-role">12th Grade Student</div></div></div></div>
+    <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"My students love using the quiz generator to prepare for tests. It's become an essential part of our classroom routine and has boosted engagement significantly."</p><div class="testi-author"><div class="testi-avatar">👩‍🏫</div><div><div class="testi-name">Ms. Priya N.</div><div class="testi-role">Middle School Science Teacher</div></div></div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="reveal">
+    <div class="section-label">// Start Today — It's Free</div>
+    <h2 class="section-title">Ready to Transform Your Learning?</h2>
+    <p>Join thousands of students already achieving their academic goals with Home Learning. No subscription needed — just sign up and start exploring.</p>
+    <a href="#" class="btn-dark">Create Your Free Account →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-text">Home<span>Learning</span></div>
+      <p class="footer-desc">An educational platform dedicated to helping students at every level succeed in their academic journey — from kindergarten through grade 12.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Subjects</h4>
+      <ul>
+        <li><a href="#">Mathematics</a></li>
+        <li><a href="#">English &amp; ELA</a></li>
+        <li><a href="#">Science</a></li>
+        <li><a href="#">Social Studies</a></li>
+        <li><a href="#">Languages</a></li>
+        <li><a href="#">Computer Science</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Tools</h4>
+      <ul>
+        <li><a href="#">Homework Tracker</a></li>
+        <li><a href="#">Essay Builder</a></li>
+        <li><a href="#">Math Solver</a></li>
+        <li><a href="#">Flashcard Studio</a></li>
+        <li><a href="#">Quiz Generator</a></li>
+        <li><a href="#">Study Planner</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>About</h4>
+      <ul>
+        <li><a href="#">Our Mission</a></li>
+        <li><a href="#">For Parents</a></li>
+        <li><a href="#">For Teachers</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Home Learning. All rights reserved.</span>
+    <span>Built with ❤️ for students everywhere</span>
+  </div>
+</footer>
+
+<script>
+  // Intersection Observer for reveal + bar animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        e.target.querySelectorAll('.subj-bar-fill').forEach(bar => {
+          bar.style.width = bar.dataset.width || '0%';
+        });
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Grade pill toggle
+  function toggleGrade(el) {
+    document.querySelectorAll('.grade-pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+
+  // Nav shadow on scroll
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.boxShadow =
+      window.scrollY > 50 ? '0 4px 20px rgba(26,18,9,0.1)' : 'none';
+  });
+</script>
+</body>
+</html>

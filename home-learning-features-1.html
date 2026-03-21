@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Home Learning — Features Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700;900&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --white:       #ffffff;
+  --off-white:   #f5faf6;
+  --green-950:   #052e16;
+  --green-900:   #14532d;
+  --green-700:   #15803d;
+  --green-600:   #16a34a;
+  --green-500:   #22c55e;
+  --green-400:   #4ade80;
+  --green-100:   #dcfce7;
+  --green-50:    #f0fdf4;
+  --slate-700:   #334155;
+  --slate-500:   #64748b;
+  --slate-300:   #cbd5e1;
+  --slate-100:   #f1f5f9;
+  --border:      #d1fae5;
+  --shadow-sm:   0 1px 3px rgba(5,46,22,0.08);
+  --shadow-md:   0 4px 16px rgba(5,46,22,0.12);
+  --shadow-lg:   0 12px 40px rgba(5,46,22,0.16);
+  --radius:      14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--green-950); overflow-x: hidden; }
+
+/* ── LOGO SHOWCASE ── */
+.logo-section {
+  background: var(--green-950);
+  padding: 4rem 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.logo-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(34,197,94,0.18) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 50%, rgba(20,83,45,0.4) 0%, transparent 60%);
+}
+.logo-section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--green-400); margin-bottom: 2.5rem; position: relative;
+}
+
+/* THE LOGO */
+.logo-display {
+  display: inline-flex; align-items: center; gap: 1.2rem;
+  position: relative; margin-bottom: 3rem;
+  animation: logoReveal 1s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes logoReveal {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.logo-mark {
+  position: relative;
+  width: 72px; height: 72px;
+  flex-shrink: 0;
+}
+.logo-mark-bg {
+  width: 72px; height: 72px;
+  background: linear-gradient(135deg, var(--green-500) 0%, var(--green-700) 100%);
+  border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 3px rgba(34,197,94,0.3), 0 8px 32px rgba(34,197,94,0.25);
+}
+.logo-mark-inner {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+}
+.logo-mark-hl { /* H letter built from bars */
+  display: grid; grid-template-columns: 5px 5px 5px; grid-template-rows: 6px 4px 6px; gap: 2px;
+}
+.logo-mark-hl span {
+  background: white; border-radius: 2px; display: block;
+}
+.logo-mark-hl span:nth-child(2) { background: transparent; }
+.logo-mark-hl span.cross { grid-column: 1 / -1; height: 3px; background: white; border-radius: 2px; }
+
+.logo-letter {
+  font-family: 'Fraunces', serif;
+  font-size: 2.4rem; font-weight: 900;
+  color: white; line-height: 1;
+}
+
+.logo-wordmark {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+}
+.logo-word-home {
+  font-family: 'Fraunces', serif;
+  font-size: 2.2rem; font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.02em; line-height: 1;
+}
+.logo-word-learning {
+  font-family: 'Fraunces', serif;
+  font-size: 2.2rem; font-weight: 900;
+  color: var(--green-400);
+  letter-spacing: -0.02em; line-height: 1;
+}
+.logo-tagline {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem; letter-spacing: 0.15em;
+  color: rgba(74,222,128,0.6); text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* Logo variants */
+.logo-variants {
+  display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
+  position: relative;
+}
+.logo-variant {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(74,222,128,0.2);
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  display: flex; flex-direction: column; align-items: center; gap: 1rem;
+}
+.logo-variant-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: rgba(74,222,128,0.5); letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* Mini logo */
+.logo-mini { display: inline-flex; align-items: center; gap: 0.6rem; }
+.logo-mini-mark {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--green-500), var(--green-700));
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-mini-mark span { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 900; color: white; }
+.logo-mini-text { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 900; color: white; }
+.logo-mini-text em { color: var(--green-400); font-style: normal; }
+
+/* Icon-only */
+.logo-icon-only {
+  width: 64px; height: 64px;
+  background: linear-gradient(135deg, var(--green-500), var(--green-700));
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(34,197,94,0.3);
+}
+.logo-icon-only span { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 900; color: white; }
+
+/* Light variant */
+.logo-light-bg {
+  background: var(--white);
+  border-color: var(--border);
+}
+.logo-light { display: inline-flex; align-items: center; gap: 0.7rem; }
+.logo-light-mark {
+  width: 42px; height: 42px;
+  background: var(--green-600);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-light-mark span { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 900; color: white; }
+.logo-light-home    { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 900; color: var(--green-950); }
+.logo-light-learn   { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 900; color: var(--green-600); }
+
+/* ── SHARED NAV ── */
+.app-nav {
+  background: var(--green-950);
+  padding: 0 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  border-bottom: 1px solid rgba(74,222,128,0.15);
+}
+.app-nav-logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; padding: 1rem 0; }
+.app-nav-logo-mark {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--green-500), var(--green-700));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+.app-nav-logo-mark span { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 900; color: white; }
+.app-nav-logo-text { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 900; color: white; }
+.app-nav-logo-text em { color: var(--green-400); font-style: normal; }
+.app-nav-tabs { display: flex; gap: 0; }
+.tab-btn {
+  padding: 1.1rem 1.4rem;
+  background: transparent; border: none;
+  font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
+  color: rgba(255,255,255,0.5); cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+.tab-btn:hover { color: rgba(255,255,255,0.8); }
+.tab-btn.active { color: var(--green-400); border-bottom-color: var(--green-400); }
+.nav-user { display: flex; align-items: center; gap: 0.8rem; }
+.nav-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--green-700); border: 2px solid var(--green-500);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; color: white; font-weight: 600;
+}
+
+/* ── FEATURE PAGES ── */
+.feature-page { display: none; padding: 2.5rem 3rem; min-height: 80vh; }
+.feature-page.active { display: block; animation: fadeIn 0.35s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.page-header { margin-bottom: 2rem; }
+.page-header h1 { font-family: 'Fraunces', serif; font-size: 1.9rem; font-weight: 900; color: var(--green-950); margin-bottom: 0.3rem; }
+.page-header p { color: var(--slate-500); font-size: 0.95rem; }
+
+/* ────────────────────────────
+   FEATURE 1: HOMEWORK SUBMISSION & GRADING
+──────────────────────────── */
+.hw-layout { display: grid; grid-template-columns: 1fr 360px; gap: 1.5rem; }
+
+.hw-list { display: flex; flex-direction: column; gap: 1rem; }
+.hw-item {
+  background: white; border: 1.5px solid var(--border); border-radius: var(--radius);
+  padding: 1.4rem 1.6rem;
+  display: flex; align-items: center; gap: 1.2rem;
+  transition: box-shadow 0.2s, transform 0.2s; cursor: pointer;
+}
+.hw-item:hover { box-shadow: var(--shadow-md); transform: translateX(3px); }
+.hw-status-dot {
+  width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+}
+.dot-pending  { background: #f59e0b; box-shadow: 0 0 0 3px #fef3c7; }
+.dot-graded   { background: var(--green-500); box-shadow: 0 0 0 3px var(--green-100); }
+.dot-overdue  { background: #ef4444; box-shadow: 0 0 0 3px #fee2e2; }
+.dot-draft    { background: var(--slate-300); box-shadow: 0 0 0 3px var(--slate-100); }
+
+.hw-meta { flex: 1; }
+.hw-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.2rem; }
+.hw-sub   { font-size: 0.8rem; color: var(--slate-500); display: flex; gap: 1rem; }
+.hw-subject-tag {
+  font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 500;
+  padding: 0.15rem 0.55rem; border-radius: 4px;
+}
+.tag-math  { background: #dbeafe; color: #1e40af; }
+.tag-sci   { background: var(--green-100); color: var(--green-700); }
+.tag-eng   { background: #fce7f3; color: #9d174d; }
+.tag-hist  { background: #ede9fe; color: #5b21b6; }
+
+.hw-grade {
+  font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 900;
+  color: var(--green-600);
+}
+.hw-grade.pending { color: var(--slate-300); font-size: 0.85rem; font-family: 'DM Sans', sans-serif; font-weight: 500; }
+
+/* Submit panel */
+.submit-panel {
+  background: white; border: 1.5px solid var(--border); border-radius: var(--radius);
+  padding: 1.6rem; height: fit-content; position: sticky; top: 80px;
+}
+.submit-panel h3 { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 1.4rem; }
+.form-group { margin-bottom: 1.2rem; }
+.form-label { font-size: 0.82rem; font-weight: 600; color: var(--slate-700); margin-bottom: 0.4rem; display: block; }
+.form-select, .form-input, .form-textarea {
+  width: 100%; border: 1.5px solid var(--slate-300); border-radius: 8px;
+  padding: 0.65rem 0.9rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+  color: var(--green-950); background: var(--off-white);
+  transition: border-color 0.2s;
+  outline: none;
+}
+.form-select:focus, .form-input:focus, .form-textarea:focus { border-color: var(--green-500); background: white; }
+.form-textarea { min-height: 90px; resize: vertical; }
+.upload-zone {
+  border: 2px dashed var(--border); border-radius: 10px;
+  padding: 1.5rem; text-align: center; cursor: pointer;
+  transition: all 0.2s; color: var(--slate-500);
+}
+.upload-zone:hover { border-color: var(--green-500); background: var(--green-50); color: var(--green-700); }
+.upload-icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+.upload-text { font-size: 0.82rem; }
+.btn-submit {
+  width: 100%; background: var(--green-600); color: white;
+  border: none; border-radius: 8px; padding: 0.85rem;
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 700;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+  margin-top: 1rem;
+}
+.btn-submit:hover { background: var(--green-700); transform: translateY(-1px); }
+
+/* Grade breakdown */
+.grade-summary {
+  background: var(--green-50); border: 1.5px solid var(--green-100); border-radius: var(--radius);
+  padding: 1.4rem; margin-bottom: 1.5rem;
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; text-align: center;
+}
+.gs-item-num { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 900; color: var(--green-700); }
+.gs-item-label { font-size: 0.75rem; color: var(--slate-500); }
+
+/* ────────────────────────────
+   FEATURE 2: AI HOMEWORK HELPER
+──────────────────────────── */
+.ai-layout { display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem; height: 72vh; }
+
+.ai-sidebar {
+  background: white; border: 1.5px solid var(--border); border-radius: var(--radius);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.ai-sidebar-header { padding: 1.2rem; border-bottom: 1px solid var(--border); }
+.ai-sidebar-header h3 { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.8rem; }
+.ai-history { flex: 1; overflow-y: auto; padding: 0.6rem; }
+.ai-history-item {
+  padding: 0.8rem 0.9rem; border-radius: 8px; cursor: pointer;
+  font-size: 0.83rem; color: var(--slate-500); transition: all 0.2s;
+  margin-bottom: 0.3rem;
+}
+.ai-history-item:hover { background: var(--green-50); color: var(--green-900); }
+.ai-history-item.active { background: var(--green-100); color: var(--green-900); font-weight: 600; }
+.ai-history-date { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--slate-300); margin-top: 0.2rem; }
+.btn-new-chat {
+  margin: 0.8rem; background: var(--green-600); color: white;
+  border: none; border-radius: 8px; padding: 0.7rem;
+  font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600;
+  cursor: pointer; transition: background 0.2s;
+}
+.btn-new-chat:hover { background: var(--green-700); }
+
+.ai-chat {
+  background: white; border: 1.5px solid var(--border); border-radius: var(--radius);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.ai-chat-header {
+  padding: 1rem 1.4rem; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 0.8rem;
+}
+.ai-avatar {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--green-500), var(--green-700));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.ai-chat-name { font-weight: 700; font-size: 0.95rem; }
+.ai-chat-status { font-size: 0.78rem; color: var(--green-600); display: flex; align-items: center; gap: 0.3rem; }
+.status-dot { width: 6px; height: 6px; background: var(--green-500); border-radius: 50%; animation: blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.ai-messages { flex: 1; overflow-y: auto; padding: 1.2rem; display: flex; flex-direction: column; gap: 1rem; }
+
+.msg { display: flex; gap: 0.8rem; max-width: 78%; }
+.msg.user { align-self: flex-end; flex-direction: row-reverse; }
+.msg-avatar {
+  width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 0.85rem;
+  background: var(--green-100); color: var(--green-700); font-weight: 700;
+}
+.msg.ai .msg-avatar { background: linear-gradient(135deg, var(--green-500), var(--green-700)); color: white; }
+.msg-bubble {
+  padding: 0.85rem 1.1rem; border-radius: 12px;
+  font-size: 0.88rem; line-height: 1.6;
+}
+.msg.ai .msg-bubble { background: var(--green-50); border: 1px solid var(--border); color: var(--green-950); border-radius: 4px 12px 12px 12px; }
+.msg.user .msg-bubble { background: var(--green-700); color: white; border-radius: 12px 4px 12px 12px; }
+
+.msg-step {
+  background: white; border: 1px solid var(--border); border-radius: 8px;
+  padding: 0.8rem; margin-top: 0.6rem; font-size: 0.83rem;
+}
+.msg-step-num { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--green-600); font-weight: 600; margin-bottom: 0.3rem; }
+
+.subject-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.7rem; }
+.subject-chip {
+  padding: 0.3rem 0.8rem; border-radius: 999px; font-size: 0.78rem; font-weight: 600;
+  background: var(--green-100); color: var(--green-800); border: none; cursor: pointer;
+  transition: all 0.15s;
+}
+.subject-chip:hover { background: var(--green-600); color: white; }
+
+.ai-input-area { padding: 1rem 1.2rem; border-top: 1px solid var(--border); }
+.ai-input-row { display: flex; gap: 0.7rem; align-items: flex-end; }
+.ai-textarea {
+  flex: 1; border: 1.5px solid var(--slate-300); border-radius: 10px;
+  padding: 0.75rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+  resize: none; min-height: 44px; max-height: 120px;
+  outline: none; transition: border-color 0.2s;
+}
+.ai-textarea:focus { border-color: var(--green-500); }
+.btn-send {
+  width: 42px; height: 42px; background: var(--green-600); border: none; border-radius: 10px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s; font-size: 1rem; color: white;
+  flex-shrink: 0;
+}
+.btn-send:hover { background: var(--green-700); }
+.ai-input-hint { font-size: 0.75rem; color: var(--slate-300); margin-top: 0.5rem; text-align: center; }
+
+/* ────────────────────────────
+   FEATURE 3: ASSIGNMENT CALENDAR
+──────────────────────────── */
+.cal-layout { display: grid; grid-template-columns: 1fr 320px; gap: 1.5rem; }
+
+.calendar-wrap { background: white; border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.cal-header {
+  background: var(--green-950); padding: 1.2rem 1.6rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.cal-title { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 700; color: white; }
+.cal-nav { display: flex; gap: 0.5rem; }
+.cal-nav-btn {
+  width: 32px; height: 32px; background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15); border-radius: 7px;
+  color: white; cursor: pointer; font-size: 0.9rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.cal-nav-btn:hover { background: rgba(255,255,255,0.2); }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.cal-day-name {
+  text-align: center; padding: 0.8rem 0;
+  font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 500;
+  color: var(--slate-500); text-transform: uppercase; letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border);
+}
+.cal-cell {
+  min-height: 90px; padding: 0.5rem; border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.15s;
+  position: relative;
+}
+.cal-cell:hover { background: var(--green-50); }
+.cal-cell.today { background: var(--green-50); }
+.cal-cell.today .cal-date { background: var(--green-600); color: white; border-radius: 50%; }
+.cal-cell.other-month .cal-date { color: var(--slate-300); }
+.cal-date { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 600; margin-bottom: 0.3rem; }
+.cal-event {
+  font-size: 0.7rem; padding: 0.15rem 0.4rem; border-radius: 3px;
+  margin-bottom: 0.2rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ev-math  { background: #dbeafe; color: #1e40af; }
+.ev-sci   { background: var(--green-100); color: var(--green-700); }
+.ev-eng   { background: #fce7f3; color: #9d174d; }
+.ev-hist  { background: #ede9fe; color: #5b21b6; }
+.ev-due   { background: #fee2e2; color: #991b1b; }
+
+/* Upcoming panel */
+.upcoming-panel { display: flex; flex-direction: column; gap: 1rem; }
+.upcoming-header { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.1rem; }
+.upcoming-item {
+  background: white; border: 1.5px solid var(--border); border-radius: var(--radius);
+  padding: 1.1rem 1.3rem; display: flex; gap: 1rem; align-items: flex-start;
+  transition: transform 0.2s; cursor: pointer;
+}
+.upcoming-item:hover { transform: translateX(3px); }
+.upcoming-date-box {
+  background: var(--green-50); border: 1px solid var(--border); border-radius: 8px;
+  padding: 0.5rem 0.7rem; text-align: center; flex-shrink: 0;
+}
+.upcoming-day   { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 900; color: var(--green-700); line-height: 1; }
+.upcoming-month { font-family: 'DM Mono', monospace; font-size: 0.65rem; text-transform: uppercase; color: var(--slate-500); }
+.upcoming-info { flex: 1; }
+.upcoming-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem; }
+.upcoming-meta  { font-size: 0.78rem; color: var(--slate-500); display: flex; gap: 0.8rem; align-items: center; }
+.urgency-badge {
+  font-size: 0.7rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 999px;
+}
+.urgency-high   { background: #fee2e2; color: #991b1b; }
+.urgency-medium { background: #fef3c7; color: #92400e; }
+.urgency-low    { background: var(--green-100); color: var(--green-800); }
+
+.add-reminder-btn {
+  background: var(--green-600); color: white; border: none; border-radius: 10px;
+  padding: 0.8rem; width: 100%; font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem; font-weight: 700; cursor: pointer; transition: background 0.2s;
+}
+.add-reminder-btn:hover { background: var(--green-700); }
+
+/* ────────────────────────────
+   FEATURE 4: STUDENT PROGRESS REPORTS
+──────────────────────────── */
+.report-header-cards {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-bottom: 2rem;
+}
+.report-kpi {
+  background: white; border: 1.5px solid var(--border); border-radius: var(--radius);
+  padding: 1.4rem; position: relative; overflow: hidden;
+}
+.report-kpi::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.kpi-green::after  { background: var(--green-500); }
+.kpi-blue::after   { background: #3b82f6; }
+.kpi-amber::after  { background: #f59e0b; }
+.kpi-purple::after { background: #8b5cf6; }
+.kpi-num { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 900; color: var(--green-950); }
+.kpi-label { font-size: 0.8rem; color: var(--slate-500); margin-top: 0.2rem; }
+.kpi-change { font-size: 0.78rem; font-weight: 600; margin-top: 0.6rem; }
+.kpi-up   { color: var(--green-600); }
+.kpi-down { color: #ef4444; }
+
+.report-layout { display: grid; grid-template-columns: 1fr 320px; gap: 1.5rem; }
+
+/* Bar chart */
+.chart-card { background: white; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 1.6rem; }
+.chart-card h3 { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1rem; margin-bottom: 1.4rem; }
+.bar-chart { display: flex; align-items: flex-end; gap: 1rem; height: 180px; padding-bottom: 0; }
+.bar-col { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; flex: 1; }
+.bar-wrap { width: 100%; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; position: relative; }
+.bar {
+  border-radius: 6px 6px 0 0;
+  transition: all 0.8s cubic-bezier(0.34,1.56,0.64,1);
+  position: relative;
+}
+.bar:hover { filter: brightness(1.1); }
+.bar-val {
+  position: absolute; top: -22px; left: 50%; transform: translateX(-50%);
+  font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 600; color: var(--green-800);
+  white-space: nowrap;
+}
+.bar-label { font-size: 0.75rem; color: var(--slate-500); text-align: center; white-space: nowrap; overflow: hidden; max-width: 100%; text-overflow: ellipsis; }
+
+/* Subject performance */
+.subj-perf { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 0.8rem; }
+.perf-row { display: flex; align-items: center; gap: 0.8rem; }
+.perf-subject { font-size: 0.83rem; font-weight: 600; width: 110px; flex-shrink: 0; }
+.perf-bar-wrap { flex: 1; height: 8px; background: var(--slate-100); border-radius: 4px; overflow: hidden; }
+.perf-bar { height: 100%; border-radius: 4px; transition: width 1s ease; }
+.perf-grade { font-family: 'DM Mono', monospace; font-size: 0.78rem; font-weight: 600; color: var(--green-700); width: 30px; text-align: right; }
+
+/* Recent activity */
+.activity-card { background: white; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 1.4rem; }
+.activity-card h3 { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1rem; margin-bottom: 1.2rem; }
+.activity-list { display: flex; flex-direction: column; gap: 0; }
+.activity-item {
+  display: flex; align-items: flex-start; gap: 0.9rem;
+  padding: 0.9rem 0; border-bottom: 1px solid var(--border);
+}
+.activity-item:last-child { border-bottom: none; }
+.activity-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+  flex-shrink: 0;
+}
+.icon-submit { background: var(--green-100); }
+.icon-grade  { background: #dbeafe; }
+.icon-chat   { background: #ede9fe; }
+.icon-streak { background: #fef3c7; }
+.activity-text { flex: 1; }
+.activity-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.15rem; }
+.activity-time  { font-size: 0.75rem; color: var(--slate-500); }
+.activity-badge { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 900; color: var(--green-600); }
+
+/* Streak & badges */
+.streak-card {
+  background: linear-gradient(135deg, var(--green-950) 0%, var(--green-900) 100%);
+  border-radius: var(--radius); padding: 1.4rem; margin-top: 1rem; color: white;
+}
+.streak-card h3 { font-family: 'Fraunces', serif; font-size: 0.95rem; font-weight: 700; color: var(--green-400); margin-bottom: 1rem; }
+.streak-days { display: flex; gap: 0.4rem; margin-bottom: 1rem; }
+.streak-day {
+  flex: 1; height: 32px; border-radius: 5px; display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; font-weight: 700; color: rgba(255,255,255,0.4);
+}
+.streak-day.done { background: var(--green-600); color: white; }
+.streak-day.today { background: var(--green-400); color: var(--green-950); }
+.streak-stat { display: flex; justify-content: space-between; }
+.streak-num { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 900; color: var(--green-400); }
+.streak-label { font-size: 0.75rem; color: rgba(255,255,255,0.5); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .app-nav { padding: 0 1rem; }
+  .app-nav-tabs { overflow-x: auto; }
+  .feature-page { padding: 1.5rem; }
+  .hw-layout, .ai-layout, .cal-layout, .report-layout { grid-template-columns: 1fr; }
+  .report-header-cards { grid-template-columns: 1fr 1fr; }
+  .ai-layout { height: auto; }
+  .ai-chat { height: 60vh; }
+  .logo-variants { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════
+     LOGO SHOWCASE
+══════════════════════════════ -->
+<div class="logo-section">
+  <div class="logo-section-label">// Home Learning — Brand Identity & Logo System</div>
+
+  <!-- Primary Logo -->
+  <div class="logo-display">
+    <div class="logo-mark">
+      <div class="logo-mark-bg">
+        <span class="logo-letter">HL</span>
+      </div>
+    </div>
+    <div class="logo-wordmark">
+      <div style="display:flex;align-items:baseline;gap:0.25rem">
+        <span class="logo-word-home">Home</span>
+        <span class="logo-word-learning">Learning</span>
+      </div>
+      <div class="logo-tagline">// Educating Every Mind, Every Day</div>
+    </div>
+  </div>
+
+  <!-- Variants -->
+  <div class="logo-variants">
+    <div class="logo-variant">
+      <div class="logo-variant-label">Icon + Wordmark (Horizontal)</div>
+      <div class="logo-mini">
+        <div class="logo-mini-mark"><span>HL</span></div>
+        <span class="logo-mini-text">Home<em>Learning</em></span>
+      </div>
+    </div>
+    <div class="logo-variant">
+      <div class="logo-variant-label">Icon Only</div>
+      <div class="logo-icon-only"><span>HL</span></div>
+    </div>
+    <div class="logo-variant logo-light-bg">
+      <div class="logo-variant-label" style="color:var(--slate-500)">Light Background Version</div>
+      <div class="logo-light">
+        <div class="logo-light-mark"><span>HL</span></div>
+        <div>
+          <span class="logo-light-home">Home</span><span class="logo-light-learn">Learning</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     APP NAV
+══════════════════════════════ -->
+<nav class="app-nav">
+  <a href="#" class="app-nav-logo">
+    <div class="app-nav-logo-mark"><span>HL</span></div>
+    <span class="app-nav-logo-text">Home<em>Learning</em></span>
+  </a>
+  <div class="app-nav-tabs">
+    <button class="tab-btn active" onclick="showTab('homework', this)">📋 Homework</button>
+    <button class="tab-btn" onclick="showTab('ai', this)">🤖 AI Helper</button>
+    <button class="tab-btn" onclick="showTab('calendar', this)">📅 Calendar</button>
+    <button class="tab-btn" onclick="showTab('progress', this)">📊 Progress</button>
+  </div>
+  <div class="nav-user">
+    <div class="nav-avatar">JS</div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════
+     FEATURE 1: HOMEWORK SUBMISSION & GRADING
+══════════════════════════════ -->
+<div class="feature-page active" id="tab-homework">
+  <div class="page-header">
+    <h1>Homework Submission & Grading</h1>
+    <p>Submit assignments, track due dates, and view your graded work all in one place.</p>
+  </div>
+
+  <div class="grade-summary">
+    <div class="gs-item"><div class="gs-item-num">12</div><div class="gs-item-label">Total Submitted</div></div>
+    <div class="gs-item"><div class="gs-item-num" style="color:#f59e0b">3</div><div class="gs-item-label">Pending Review</div></div>
+    <div class="gs-item"><div class="gs-item-num">B+</div><div class="gs-item-label">Average Grade</div></div>
+    <div class="gs-item"><div class="gs-item-num" style="color:#ef4444">1</div><div class="gs-item-label">Overdue</div></div>
+  </div>
+
+  <div class="hw-layout">
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+        <strong style="font-size:0.9rem">Recent Assignments</strong>
+        <select class="form-select" style="width:auto;padding:0.4rem 0.8rem;font-size:0.82rem">
+          <option>All Subjects</option>
+          <option>Mathematics</option>
+          <option>English</option>
+          <option>Science</option>
+        </select>
+      </div>
+      <div class="hw-list">
+        <div class="hw-item">
+          <div class="hw-status-dot dot-graded"></div>
+          <div class="hw-meta">
+            <div class="hw-title">Quadratic Equations — Chapter 5 Exercises</div>
+            <div class="hw-sub">
+              <span class="hw-subject-tag tag-math">Math</span>
+              <span>Due: Mar 18 · Submitted: Mar 17</span>
+            </div>
+          </div>
+          <div class="hw-grade">A−</div>
+        </div>
+        <div class="hw-item">
+          <div class="hw-status-dot dot-pending"></div>
+          <div class="hw-meta">
+            <div class="hw-title">Essay: "The Great Gatsby" — Theme Analysis</div>
+            <div class="hw-sub">
+              <span class="hw-subject-tag tag-eng">English</span>
+              <span>Due: Mar 22 · Submitted: Mar 20</span>
+            </div>
+          </div>
+          <div class="hw-grade pending">Under Review</div>
+        </div>
+        <div class="hw-item">
+          <div class="hw-status-dot dot-graded"></div>
+          <div class="hw-meta">
+            <div class="hw-title">Cell Biology — Mitosis Diagram &amp; Notes</div>
+            <div class="hw-sub">
+              <span class="hw-subject-tag tag-sci">Science</span>
+              <span>Due: Mar 15 · Submitted: Mar 14</span>
+            </div>
+          </div>
+          <div class="hw-grade">B+</div>
+        </div>
+        <div class="hw-item">
+          <div class="hw-status-dot dot-overdue"></div>
+          <div class="hw-meta">
+            <div class="hw-title">World War II — Causes &amp; Consequences</div>
+            <div class="hw-sub">
+              <span class="hw-subject-tag tag-hist">History</span>
+              <span style="color:#ef4444;font-weight:600">⚠ Overdue — Due Mar 16</span>
+            </div>
+          </div>
+          <div class="hw-grade pending" style="color:#ef4444">Overdue</div>
+        </div>
+        <div class="hw-item">
+          <div class="hw-status-dot dot-draft"></div>
+          <div class="hw-meta">
+            <div class="hw-title">Trigonometry — Sin/Cos/Tan Problem Set</div>
+            <div class="hw-sub">
+              <span class="hw-subject-tag tag-math">Math</span>
+              <span>Due: Mar 25 · Draft saved</span>
+            </div>
+          </div>
+          <div class="hw-grade pending">Draft</div>
+        </div>
+        <div class="hw-item">
+          <div class="hw-status-dot dot-graded"></div>
+          <div class="hw-meta">
+            <div class="hw-title">Creative Writing — Short Story Draft</div>
+            <div class="hw-sub">
+              <span class="hw-subject-tag tag-eng">English</span>
+              <span>Due: Mar 10 · Submitted: Mar 9</span>
+            </div>
+          </div>
+          <div class="hw-grade">A</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-panel">
+      <h3>📤 Submit New Assignment</h3>
+      <div class="form-group">
+        <label class="form-label">Subject</label>
+        <select class="form-select">
+          <option>Select subject...</option>
+          <option>Mathematics</option>
+          <option>English</option>
+          <option>Science</option>
+          <option>History</option>
+          <option>Computer Science</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Assignment Title</label>
+        <input class="form-input" type="text" placeholder="e.g. Chapter 5 Exercises"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes for Teacher</label>
+        <textarea class="form-textarea" placeholder="Any notes or comments..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Upload File</label>
+        <div class="upload-zone" onclick="this.style.borderColor='var(--green-500)'">
+          <div class="upload-icon">📎</div>
+          <div class="upload-text">Click to upload or drag &amp; drop<br/><span style="font-size:0.73rem;color:var(--slate-300)">PDF, DOCX, JPG up to 25MB</span></div>
+        </div>
+      </div>
+      <button class="btn-submit" onclick="this.textContent='✓ Submitted!';this.style.background='var(--green-700)'">Submit Assignment</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     FEATURE 2: AI HOMEWORK HELPER
+══════════════════════════════ -->
+<div class="feature-page" id="tab-ai">
+  <div class="page-header">
+    <h1>Live AI Homework Helper</h1>
+    <p>Get instant, step-by-step help on any subject — anytime, anywhere.</p>
+  </div>
+
+  <div class="ai-layout">
+    <div class="ai-sidebar">
+      <div class="ai-sidebar-header">
+        <h3>Chat History</h3>
+        <button class="btn-new-chat">+ New Chat</button>
+      </div>
+      <div class="ai-history">
+        <div class="ai-history-item active">
+          Solving quadratic equations
+          <div class="ai-history-date">Today, 10:32 AM</div>
+        </div>
+        <div class="ai-history-item">
+          Photosynthesis explained
+          <div class="ai-history-date">Yesterday, 3:15 PM</div>
+        </div>
+        <div class="ai-history-item">
+          Essay structure help
+          <div class="ai-history-date">Mar 19, 7:44 PM</div>
+        </div>
+        <div class="ai-history-item">
+          French Revolution causes
+          <div class="ai-history-date">Mar 18, 5:20 PM</div>
+        </div>
+        <div class="ai-history-item">
+          Pythagorean theorem
+          <div class="ai-history-date">Mar 17, 2:08 PM</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-chat">
+      <div class="ai-chat-header">
+        <div class="ai-avatar">🤖</div>
+        <div>
+          <div class="ai-chat-name">HL Study Assistant</div>
+          <div class="ai-chat-status"><span class="status-dot"></span> Online &amp; Ready</div>
+        </div>
+      </div>
+
+      <div class="ai-messages" id="chatMessages">
+        <div class="msg ai">
+          <div class="msg-avatar">🤖</div>
+          <div>
+            <div class="msg-bubble">
+              Hi there! 👋 I'm your Home Learning AI Study Assistant. I can help you with homework, explain concepts step-by-step, review your essays, and solve practice problems. What subject are you working on today?
+              <div class="subject-chips">
+                <button class="subject-chip">➕ Math</button>
+                <button class="subject-chip">🔬 Science</button>
+                <button class="subject-chip">📖 English</button>
+                <button class="subject-chip">🌍 History</button>
+                <button class="subject-chip">💻 Coding</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="msg user">
+          <div class="msg-avatar">JS</div>
+          <div class="msg-bubble">Can you help me solve x² + 5x + 6 = 0?</div>
+        </div>
+
+        <div class="msg ai">
+          <div class="msg-avatar">🤖</div>
+          <div>
+            <div class="msg-bubble">
+              Of course! Let's solve this quadratic equation together using factoring. 🎯
+              <div class="msg-step">
+                <div class="msg-step-num">STEP 1 — Identify the equation</div>
+                We have: <strong>x² + 5x + 6 = 0</strong><br/>
+                This is in standard form ax² + bx + c = 0, where a=1, b=5, c=6
+              </div>
+              <div class="msg-step">
+                <div class="msg-step-num">STEP 2 — Find two numbers</div>
+                Find two numbers that multiply to <strong>c = 6</strong> and add to <strong>b = 5</strong><br/>
+                → 2 × 3 = 6 ✓ and 2 + 3 = 5 ✓
+              </div>
+              <div class="msg-step">
+                <div class="msg-step-num">STEP 3 — Factor the equation</div>
+                (x + 2)(x + 3) = 0
+              </div>
+              <div class="msg-step">
+                <div class="msg-step-num">STEP 4 — Solve for x</div>
+                x + 2 = 0 → <strong>x = −2</strong><br/>
+                x + 3 = 0 → <strong>x = −3</strong>
+              </div>
+              ✅ <strong>Solutions: x = −2 and x = −3</strong><br/><br/>
+              Would you like me to verify these answers or try another method?
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-input-area">
+        <div class="ai-input-row">
+          <textarea class="ai-textarea" id="chatInput" placeholder="Ask anything — math, science, essay help..." rows="1"
+            onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"></textarea>
+          <button class="btn-send" onclick="sendMsg()">➤</button>
+        </div>
+        <div class="ai-input-hint">Press Enter to send · Shift+Enter for new line</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     FEATURE 3: CALENDAR & REMINDERS
+══════════════════════════════ -->
+<div class="feature-page" id="tab-calendar">
+  <div class="page-header">
+    <h1>Assignment Calendar &amp; Reminders</h1>
+    <p>Stay on top of every due date, quiz, and project deadline — never miss a thing.</p>
+  </div>
+
+  <div class="cal-layout">
+    <div class="calendar-wrap">
+      <div class="cal-header">
+        <span class="cal-title">March 2026</span>
+        <div class="cal-nav">
+          <button class="cal-nav-btn">‹</button>
+          <button class="cal-nav-btn">›</button>
+        </div>
+      </div>
+      <div class="cal-grid">
+        <div class="cal-day-name">Sun</div>
+        <div class="cal-day-name">Mon</div>
+        <div class="cal-day-name">Tue</div>
+        <div class="cal-day-name">Wed</div>
+        <div class="cal-day-name">Thu</div>
+        <div class="cal-day-name">Fri</div>
+        <div class="cal-day-name">Sat</div>
+
+        <!-- Week 1 -->
+        <div class="cal-cell other-month"><div class="cal-date">23</div></div>
+        <div class="cal-cell other-month"><div class="cal-date">24</div></div>
+        <div class="cal-cell other-month"><div class="cal-date">25</div></div>
+        <div class="cal-cell other-month"><div class="cal-date">26</div></div>
+        <div class="cal-cell other-month"><div class="cal-date">27</div></div>
+        <div class="cal-cell other-month"><div class="cal-date">28</div></div>
+        <div class="cal-cell"><div class="cal-date">1</div></div>
+
+        <!-- Week 2 -->
+        <div class="cal-cell"><div class="cal-date">2</div></div>
+        <div class="cal-cell"><div class="cal-date">3</div><div class="cal-event ev-math">Math HW</div></div>
+        <div class="cal-cell"><div class="cal-date">4</div></div>
+        <div class="cal-cell"><div class="cal-date">5</div><div class="cal-event ev-sci">Science Lab</div></div>
+        <div class="cal-cell"><div class="cal-date">6</div></div>
+        <div class="cal-cell"><div class="cal-date">7</div><div class="cal-event ev-eng">Essay Draft</div></div>
+        <div class="cal-cell"><div class="cal-date">8</div></div>
+
+        <!-- Week 3 -->
+        <div class="cal-cell"><div class="cal-date">9</div></div>
+        <div class="cal-cell"><div class="cal-date">10</div><div class="cal-event ev-hist">History Test</div></div>
+        <div class="cal-cell"><div class="cal-date">11</div></div>
+        <div class="cal-cell"><div class="cal-date">12</div><div class="cal-event ev-math">Algebra Quiz</div></div>
+        <div class="cal-cell"><div class="cal-date">13</div><div class="cal-event ev-sci">Bio Report</div></div>
+        <div class="cal-cell"><div class="cal-date">14</div></div>
+        <div class="cal-cell"><div class="cal-date">15</div></div>
+
+        <!-- Week 4 -->
+        <div class="cal-cell"><div class="cal-date">16</div><div class="cal-event ev-due">⚠ Overdue</div></div>
+        <div class="cal-cell"><div class="cal-date">17</div><div class="cal-event ev-math">Math HW</div></div>
+        <div class="cal-cell"><div class="cal-date">18</div></div>
+        <div class="cal-cell"><div class="cal-date">19</div><div class="cal-event ev-eng">English</div></div>
+        <div class="cal-cell"><div class="cal-date">20</div><div class="cal-event ev-sci">Chemistry</div></div>
+        <div class="cal-cell today"><div class="cal-date">21</div><div class="cal-event ev-hist">Today</div></div>
+        <div class="cal-cell"><div class="cal-date">22</div><div class="cal-event ev-eng">Essay Due</div></div>
+
+        <!-- Week 5 -->
+        <div class="cal-cell"><div class="cal-date">23</div></div>
+        <div class="cal-cell"><div class="cal-date">24</div><div class="cal-event ev-math">Math Test</div></div>
+        <div class="cal-cell"><div class="cal-date">25</div><div class="cal-event ev-math">Trig HW</div></div>
+        <div class="cal-cell"><div class="cal-date">26</div></div>
+        <div class="cal-cell"><div class="cal-date">27</div><div class="cal-event ev-sci">Physics</div></div>
+        <div class="cal-cell"><div class="cal-date">28</div></div>
+        <div class="cal-cell"><div class="cal-date">29</div></div>
+
+        <!-- Row 6 -->
+        <div class="cal-cell"><div class="cal-date">30</div></div>
+        <div class="cal-cell"><div class="cal-date">31</div><div class="cal-event ev-hist">History Essay</div></div>
+        <div class="cal-cell other-month"><div class="cal-date">1</div></div>
+        <div class="cal-cell other-month"><div class="cal-date">2</div></div>
+        <div class="cal-cell other-month"><div class="cal-date">3</div></div>
+        <div class="cal-cell other-month"><div class="cal-date">4</div></div>
+        <div class="cal-cell other-month"><div class="cal-date">5</div></div>
+      </div>
+    </div>
+
+    <div class="upcoming-panel">
+      <div class="upcoming-header">Upcoming Deadlines</div>
+      <div class="upcoming-item">
+        <div class="upcoming-date-box"><div class="upcoming-day">22</div><div class="upcoming-month">Mar</div></div>
+        <div class="upcoming-info">
+          <div class="upcoming-title">Great Gatsby Essay Final</div>
+          <div class="upcoming-meta"><span class="hw-subject-tag tag-eng">English</span> <span class="urgency-badge urgency-high">Tomorrow</span></div>
+        </div>
+      </div>
+      <div class="upcoming-item">
+        <div class="upcoming-date-box"><div class="upcoming-day">24</div><div class="upcoming-month">Mar</div></div>
+        <div class="upcoming-info">
+          <div class="upcoming-title">Algebra Mid-Term Test</div>
+          <div class="upcoming-meta"><span class="hw-subject-tag tag-math">Math</span> <span class="urgency-badge urgency-medium">3 Days</span></div>
+        </div>
+      </div>
+      <div class="upcoming-item">
+        <div class="upcoming-date-box"><div class="upcoming-day">25</div><div class="upcoming-month">Mar</div></div>
+        <div class="upcoming-info">
+          <div class="upcoming-title">Trigonometry Problem Set</div>
+          <div class="upcoming-meta"><span class="hw-subject-tag tag-math">Math</span> <span class="urgency-badge urgency-medium">4 Days</span></div>
+        </div>
+      </div>
+      <div class="upcoming-item">
+        <div class="upcoming-date-box"><div class="upcoming-day">27</div><div class="upcoming-month">Mar</div></div>
+        <div class="upcoming-info">
+          <div class="upcoming-title">Physics Lab Report</div>
+          <div class="upcoming-meta"><span class="hw-subject-tag tag-sci">Science</span> <span class="urgency-badge urgency-low">6 Days</span></div>
+        </div>
+      </div>
+      <div class="upcoming-item">
+        <div class="upcoming-date-box"><div class="upcoming-day">31</div><div class="upcoming-month">Mar</div></div>
+        <div class="upcoming-info">
+          <div class="upcoming-title">WWI &amp; WWII Comparative Essay</div>
+          <div class="upcoming-meta"><span class="hw-subject-tag tag-hist">History</span> <span class="urgency-badge urgency-low">10 Days</span></div>
+        </div>
+      </div>
+      <button class="add-reminder-btn">+ Add New Reminder</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     FEATURE 4: STUDENT PROGRESS REPORTS
+══════════════════════════════ -->
+<div class="feature-page" id="tab-progress">
+  <div class="page-header">
+    <h1>Student Progress Report</h1>
+    <p>A complete view of academic performance, activity, and streaks across all subjects.</p>
+  </div>
+
+  <div class="report-header-cards">
+    <div class="report-kpi kpi-green">
+      <div class="kpi-num">B+</div>
+      <div class="kpi-label">Overall Average Grade</div>
+      <div class="kpi-change kpi-up">↑ Up from B last month</div>
+    </div>
+    <div class="report-kpi kpi-blue">
+      <div class="kpi-num">47</div>
+      <div class="kpi-label">Assignments Completed</div>
+      <div class="kpi-change kpi-up">↑ +8 this month</div>
+    </div>
+    <div class="report-kpi kpi-amber">
+      <div class="kpi-num">94%</div>
+      <div class="kpi-label">Submission Rate</div>
+      <div class="kpi-change kpi-up">↑ 2% improvement</div>
+    </div>
+    <div class="report-kpi kpi-purple">
+      <div class="kpi-num">14</div>
+      <div class="kpi-label">Day Study Streak 🔥</div>
+      <div class="kpi-change kpi-up">Personal best!</div>
+    </div>
+  </div>
+
+  <div class="report-layout">
+    <div style="display:flex;flex-direction:column;gap:1.5rem">
+
+      <!-- Bar chart -->
+      <div class="chart-card">
+        <h3>Monthly Grade Trend</h3>
+        <div class="bar-chart">
+          <div class="bar-col">
+            <div class="bar-wrap"><div class="bar" style="height:55%;background:linear-gradient(180deg,var(--green-400),var(--green-600))"><span class="bar-val">C+</span></div></div>
+            <div class="bar-label">Oct</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-wrap"><div class="bar" style="height:62%;background:linear-gradient(180deg,var(--green-400),var(--green-600))"><span class="bar-val">B−</span></div></div>
+            <div class="bar-label">Nov</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-wrap"><div class="bar" style="height:68%;background:linear-gradient(180deg,var(--green-400),var(--green-600))"><span class="bar-val">B</span></div></div>
+            <div class="bar-label">Dec</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-wrap"><div class="bar" style="height:72%;background:linear-gradient(180deg,var(--green-400),var(--green-600))"><span class="bar-val">B</span></div></div>
+            <div class="bar-label">Jan</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-wrap"><div class="bar" style="height:78%;background:linear-gradient(180deg,var(--green-400),var(--green-600))"><span class="bar-val">B+</span></div></div>
+            <div class="bar-label">Feb</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-wrap"><div class="bar" style="height:85%;background:linear-gradient(180deg,var(--green-400),var(--green-600));box-shadow:0 0 12px rgba(34,197,94,0.4)"><span class="bar-val">A−</span></div></div>
+            <div class="bar-label">Mar ✦</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subject performance -->
+      <div class="chart-card">
+        <h3>Performance by Subject</h3>
+        <div class="subj-perf">
+          <div class="perf-row">
+            <div class="perf-subject">English</div>
+            <div class="perf-bar-wrap"><div class="perf-bar" style="width:91%;background:var(--green-500)"></div></div>
+            <div class="perf-grade">A</div>
+          </div>
+          <div class="perf-row">
+            <div class="perf-subject">Computer Sci</div>
+            <div class="perf-bar-wrap"><div class="perf-bar" style="width:88%;background:var(--green-500)"></div></div>
+            <div class="perf-grade">A−</div>
+          </div>
+          <div class="perf-row">
+            <div class="perf-subject">Science</div>
+            <div class="perf-bar-wrap"><div class="perf-bar" style="width:82%;background:#3b82f6"></div></div>
+            <div class="perf-grade">B+</div>
+          </div>
+          <div class="perf-row">
+            <div class="perf-subject">Mathematics</div>
+            <div class="perf-bar-wrap"><div class="perf-bar" style="width:78%;background:#3b82f6"></div></div>
+            <div class="perf-grade">B+</div>
+          </div>
+          <div class="perf-row">
+            <div class="perf-subject">History</div>
+            <div class="perf-bar-wrap"><div class="perf-bar" style="width:71%;background:#f59e0b"></div></div>
+            <div class="perf-grade">B</div>
+          </div>
+          <div class="perf-row">
+            <div class="perf-subject">Foreign Lang.</div>
+            <div class="perf-bar-wrap"><div class="perf-bar" style="width:65%;background:#f59e0b"></div></div>
+            <div class="perf-grade">B−</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:1.2rem">
+      <!-- Activity feed -->
+      <div class="activity-card">
+        <h3>Recent Activity</h3>
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="activity-icon icon-grade">🏅</div>
+            <div class="activity-text">
+              <div class="activity-title">Graded: Math HW — A−</div>
+              <div class="activity-time">Today, 9:14 AM</div>
+            </div>
+            <div class="activity-badge">A−</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon icon-submit">📤</div>
+            <div class="activity-text">
+              <div class="activity-title">Submitted: English Essay</div>
+              <div class="activity-time">Yesterday, 8:50 PM</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon icon-chat">🤖</div>
+            <div class="activity-text">
+              <div class="activity-title">AI Chat: Quadratic equations</div>
+              <div class="activity-time">Yesterday, 6:32 PM</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon icon-grade">🏅</div>
+            <div class="activity-text">
+              <div class="activity-title">Graded: Science Lab — B+</div>
+              <div class="activity-time">Mar 19, 2:10 PM</div>
+            </div>
+            <div class="activity-badge">B+</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon icon-streak">🔥</div>
+            <div class="activity-text">
+              <div class="activity-title">14-day study streak reached!</div>
+              <div class="activity-time">Mar 19, 12:00 AM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Streak -->
+      <div class="streak-card">
+        <h3>🔥 Study Streak</h3>
+        <div class="streak-days">
+          <div class="streak-day done">M</div>
+          <div class="streak-day done">T</div>
+          <div class="streak-day done">W</div>
+          <div class="streak-day done">T</div>
+          <div class="streak-day done">F</div>
+          <div class="streak-day done">S</div>
+          <div class="streak-day today">S</div>
+        </div>
+        <div class="streak-stat">
+          <div><div class="streak-num">14</div><div class="streak-label">Current Streak</div></div>
+          <div style="text-align:right"><div class="streak-num">21</div><div class="streak-label">Personal Best</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Tab switching
+function showTab(name, btn) {
+  document.querySelectorAll('.feature-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// AI Chat
+const replies = [
+  "Great question! Let me break that down step by step for you. First, let's identify the key concepts involved, then we'll work through the solution together. 🎯",
+  "Sure! Here's how to approach this problem:\n\n**Step 1:** Read the question carefully and identify what's being asked.\n**Step 2:** Gather the relevant formulas or rules.\n**Step 3:** Apply them systematically.\n\nDoes that help clarify things?",
+  "Excellent! This is actually a really common topic that trips students up. The key thing to remember is to always check your work after solving. Would you like a practice problem to test your understanding?",
+  "I can definitely help with that! This topic connects to what we discussed earlier. The main idea is to build on the fundamentals. Shall I give you more examples? 📚",
+  "That's a thoughtful question! Here's a tip that many top students use: break the problem into smaller parts and solve each one separately. It makes even the hardest problems manageable. ✅"
+];
+let replyIdx = 0;
+
+function sendMsg() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  const msgs = document.getElementById('chatMessages');
+
+  // User message
+  const userDiv = document.createElement('div');
+  userDiv.className = 'msg user';
+  userDiv.innerHTML = `<div class="msg-avatar">JS</div><div class="msg-bubble">${text.replace(/</g,'&lt;')}</div>`;
+  msgs.appendChild(userDiv);
+  input.value = '';
+
+  // AI typing indicator
+  setTimeout(() => {
+    const aiDiv = document.createElement('div');
+    aiDiv.className = 'msg ai';
+    aiDiv.innerHTML = `<div class="msg-avatar">🤖</div><div class="msg-bubble" style="color:var(--slate-300);font-style:italic">Thinking<span id="dots">...</span></div>`;
+    msgs.appendChild(aiDiv);
+    msgs.scrollTop = msgs.scrollHeight;
+
+    let d = 0;
+    const dotsInterval = setInterval(() => {
+      const el = document.getElementById('dots');
+      if (el) el.textContent = ['...','.. ','.',' ..'][d++ % 4];
+    }, 300);
+
+    setTimeout(() => {
+      clearInterval(dotsInterval);
+      const bubble = aiDiv.querySelector('.msg-bubble');
+      bubble.style.color = '';
+      bubble.style.fontStyle = '';
+      bubble.textContent = replies[replyIdx % replies.length];
+      replyIdx++;
+      msgs.scrollTop = msgs.scrollHeight;
+    }, 1400);
+
+    msgs.scrollTop = msgs.scrollHeight;
+  }, 300);
+}
+
+// Subject chips in AI
+document.querySelectorAll('.subject-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.getElementById('chatInput').value = `Help me with ${chip.textContent.replace(/[^a-zA-Z\s]/g,'')} homework`;
+    document.getElementById('chatInput').focus();
+  });
+});
+</script>
+</body>
+</html>
